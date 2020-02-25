@@ -4,15 +4,17 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.qoolqas.moviedb.BuildConfig
 import com.qoolqas.moviedb.connection.Client
+import com.qoolqas.moviedb.model.PopularMovieItem
 import com.qoolqas.moviedb.model.PopularMovieResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PopularViewmodel : ViewModel() {
-    private val popular = MutableLiveData<PopularMovieResponse>()
-    val api: String = "8a9be9d05bd9f9d5ca154aaf42504303"
+    private val popular = MutableLiveData<List<PopularMovieItem>>()
+    val api: String = BuildConfig.API_KEY
 
     fun init(page: Int){
         loadPopular(page)
@@ -30,7 +32,7 @@ class PopularViewmodel : ViewModel() {
                 ) {
                     if (response.isSuccessful){
                         val respons:PopularMovieResponse? = response.body()
-                        popular.postValue(respons)
+                        popular.postValue(respons?.result)
                     }else{
                         Log.d("else" ,"Failure")
                     }
@@ -39,7 +41,7 @@ class PopularViewmodel : ViewModel() {
 
             })
     }
-    fun livePopular(): LiveData<PopularMovieResponse> {
+    fun livePopular(): LiveData<List<PopularMovieItem>> {
            return popular
     }
 }

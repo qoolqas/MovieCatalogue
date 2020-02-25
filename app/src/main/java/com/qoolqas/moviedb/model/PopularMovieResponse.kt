@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class PopularMovieResponse(
     @SerializedName("page")
     val page: Int,
-    @SerializedName("result")
+    @SerializedName("results")
     val result: ArrayList<PopularMovieItem>
 )

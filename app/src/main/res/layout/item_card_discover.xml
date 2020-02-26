@@ -66,6 +66,7 @@
             android:id="@+id/imgPoster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            card_view:layout_constraintDimensionRatio="H,2:3"
             android:layout_gravity="fill"
             android:contentDescription="@string/image"
             android:foregroundGravity="fill"
@@ -74,7 +75,7 @@
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_launcher_background" />
+            tools:src="@drawable/exposter" />
 
 
     </androidx.cardview.widget.CardView>

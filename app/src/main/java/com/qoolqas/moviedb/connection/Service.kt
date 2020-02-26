@@ -1,6 +1,6 @@
 package com.qoolqas.moviedb.connection
 
-import com.qoolqas.moviedb.model.PopularMovieResponse
+import com.qoolqas.moviedb.model.popular.PopularMovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
-import com.qoolqas.moviedb.model.PopularMovieItem
+import com.qoolqas.moviedb.model.popular.PopularResultsItem
 import kotlinx.android.synthetic.main.card_movie.view.*
 
-class PopularAdapter(private val list: List<PopularMovieItem>) :
+class PopularAdapter(private val list: List<PopularResultsItem>) :
     RecyclerView.Adapter<PopularAdapter.ViewHolder>() {
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -23,7 +23,7 @@ class PopularAdapter(private val list: List<PopularMovieItem>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.view.tvTitle.text = list.get(position).title
         Glide.with(holder.view)
-            .load("https://image.tmdb.org/t/p/w185" + list.get(position).poster_path)
+            .load("https://image.tmdb.org/t/p/w185" + list.get(position).posterPath)
             .into(holder.view.imgPoster)
     }
 

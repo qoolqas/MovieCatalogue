@@ -6,10 +6,10 @@
     tools:context=".SecondActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
+        android:id="@+id/rv2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/card_movie">
+        tools:listitem="@layout/item_card_discover">
 
     </androidx.recyclerview.widget.RecyclerView>
 

@@ -2,7 +2,7 @@ package com.qoolqas.moviedb.model.discover
 
 import com.google.gson.annotations.SerializedName
 
-data class ResultsItem(
+data class DiscoverResultsItem(
 
 	@field:SerializedName("overview")
 	val overview: String? = null,

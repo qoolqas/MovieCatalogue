@@ -1,5 +1,6 @@
 package com.qoolqas.moviedb.connection
 
+import com.qoolqas.moviedb.model.discover.DiscoverMovieResponse
 import com.qoolqas.moviedb.model.genre.GenreMovieResponse
 import com.qoolqas.moviedb.model.popular.PopularMovieResponse
 import retrofit2.Call
@@ -18,11 +19,11 @@ interface Service {
     //endregion
 
     //region Discover
-    @GET("movie/popular")
+    @GET("discover/movie")
     fun getDiscover(
         @Query("api_key") api: String,
         @Query("page") page: Int
-    ): Call<PopularMovieResponse>
+    ): Call<DiscoverMovieResponse>
     //endregion
 
     //region Details

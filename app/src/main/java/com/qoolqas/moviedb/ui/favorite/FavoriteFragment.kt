@@ -19,13 +19,9 @@ class FavoriteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        favoriteViewModel =
-            ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        favoriteViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+
+        val v = inflater.inflate(R.layout.fragment_slideshow, container, false)
+
+        return v
     }
 }

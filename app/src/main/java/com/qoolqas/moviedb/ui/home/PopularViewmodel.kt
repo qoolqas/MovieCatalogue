@@ -1,4 +1,4 @@
-package com.qoolqas.moviedb.ui
+package com.qoolqas.moviedb.ui.home
 
 import android.util.Log
 import androidx.lifecycle.LiveData

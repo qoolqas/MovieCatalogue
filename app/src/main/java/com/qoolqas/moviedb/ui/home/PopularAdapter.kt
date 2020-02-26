@@ -1,4 +1,4 @@
-package com.qoolqas.moviedb.ui.popular
+package com.qoolqas.moviedb.ui.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +14,9 @@ class PopularAdapter(private val list: List<PopularResultsItem>) :
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.card_movie,parent,false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.card_movie, parent, false)
+        )
     }
 
     override fun getItemCount(): Int = list.size

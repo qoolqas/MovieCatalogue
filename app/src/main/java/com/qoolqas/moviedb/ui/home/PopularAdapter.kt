@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.popular.PopularResultsItem
-import kotlinx.android.synthetic.main.card_movie.view.*
+import kotlinx.android.synthetic.main.item_card_discover.view.*
+import kotlinx.android.synthetic.main.item_card_popular.view.*
 
 class PopularAdapter(private val list: List<PopularResultsItem>) :
     RecyclerView.Adapter<PopularAdapter.ViewHolder>() {
@@ -15,7 +16,7 @@ class PopularAdapter(private val list: List<PopularResultsItem>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.card_movie, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_card_popular, parent, false)
         )
     }
 
@@ -23,10 +24,11 @@ class PopularAdapter(private val list: List<PopularResultsItem>) :
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.tvTitle.text = list.get(position).title
+        holder.view.popularTitle.text = list.get(position).title
+        holder.view.popularRating.text = list.get(position).voteAverage.toString()
         Glide.with(holder.view)
             .load("https://image.tmdb.org/t/p/w185" + list.get(position).posterPath)
-            .into(holder.view.imgPoster)
+            .into(holder.view.popularPoster)
     }
 
 }

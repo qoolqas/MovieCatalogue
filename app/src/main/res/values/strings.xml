@@ -15,4 +15,6 @@
 
     <string name="home_second">Home Second</string>
     <string name="content_image">Content Image</string>
+    <string name="menu_discover">Discover</string>
+    <string name="menu_favorite">Favorite</string>
 </resources>

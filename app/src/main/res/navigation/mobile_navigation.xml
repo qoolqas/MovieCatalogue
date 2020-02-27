@@ -15,7 +15,7 @@
         android:id="@+id/nav_discover"
         android:name="com.qoolqas.moviedb.ui.discover.DiscoverFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_discover" />
 
     <fragment
         android:id="@+id/nav_favorite"

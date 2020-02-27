@@ -1,5 +1,6 @@
 package com.qoolqas.moviedb.connection
 
+import com.qoolqas.moviedb.model.details.DetailsMovieResponse
 import com.qoolqas.moviedb.model.discover.DiscoverMovieResponse
 import com.qoolqas.moviedb.model.genre.GenreMovieResponse
 import com.qoolqas.moviedb.model.popular.PopularMovieResponse
@@ -27,11 +28,12 @@ interface Service {
     //endregion
 
     //region Details
-    @GET("movie/popular")
+    @GET("movie/{movie_id}")
     fun getDetails(
-        @Query("api_key") api: String,
-        @Path("id") id: Int
-    ): Call<PopularMovieResponse>
+        @Path("movie_id") id: Int,
+        @Query("api_key") api: String
+
+    ): Call<DetailsMovieResponse>
     //endregion
 
     //region Genre

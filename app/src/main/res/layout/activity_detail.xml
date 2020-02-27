@@ -30,11 +30,11 @@
 
 
                 <ImageView
-                    android:id="@+id/backdrop"
+                    android:id="@+id/detail_backdrop"
                     android:layout_width="600dp"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
 
 
                     <ImageView
-                        android:id="@+id/poster"
+                        android:id="@+id/detail_poster"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
@@ -155,7 +155,24 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/detail_rating_star"
                 app:layout_constraintTop_toBottomOf="@+id/detail_title"
-                tools:text="6.7" />
+                tools:text="6.7"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/detail_rating_static"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/_10"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/detail_rating_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/detail_rating_text"
+                app:layout_constraintTop_toTopOf="@+id/detail_rating_text"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/detail_description"

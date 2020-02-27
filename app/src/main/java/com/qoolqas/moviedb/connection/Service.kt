@@ -28,10 +28,11 @@ interface Service {
     //endregion
 
     //region Details
-    @GET("/movie/{movie_id}")
+    @GET("movie/{movie_id}")
     fun getDetails(
-        @Query("api_key") api: String,
-        @Path("movie_id") id: Int
+        @Path("movie_id") id: Int,
+        @Query("api_key") api: String
+
     ): Call<DetailsMovieResponse>
     //endregion
 

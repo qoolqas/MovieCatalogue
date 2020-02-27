@@ -1,6 +1,7 @@
 package com.qoolqas.moviedb.ui.home
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.popular.PopularResultsItem
 import com.qoolqas.moviedb.ui.DetailActivity
+import com.qoolqas.moviedb.ui.DetailActivity.Companion.EXTRA_ID
 import kotlinx.android.synthetic.main.item_card_discover.view.*
 import kotlinx.android.synthetic.main.item_card_popular.view.*
 
@@ -33,9 +35,10 @@ class PopularAdapter(private val list: List<PopularResultsItem>) :
             .into(holder.view.popularPoster)
 
         holder.view.setOnClickListener(View.OnClickListener {
-            val intent = Intent(holder.view.context, DetailActivity::class.java)
-            intent.putExtra("id", list.get(position).id)
-            holder.view.context.startActivity(intent)
+            val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
+            intentDetail.putExtra(EXTRA_ID, list.get(position).id)
+            holder.view.context.startActivity(intentDetail)
+            Log.d("id", list.get(position).id.toString())
 
         })
     }

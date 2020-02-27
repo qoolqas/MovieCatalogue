@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
+import com.qoolqas.moviedb.utils.EndlessOnScrollListener
+
 
 class DiscoverFragment : Fragment() {
 
@@ -21,6 +23,7 @@ class DiscoverFragment : Fragment() {
         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     private var discoverRv: RecyclerView? = null
     private var discoverPb: ProgressBar? = null
+    var page: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,9 +48,20 @@ class DiscoverFragment : Fragment() {
 
         return v
     }
+
     private fun initRv(discover: List<DiscoverResultsItem>) {
         discoverAdapter = DiscoverAdapter(discover)
         discoverRv?.adapter = discoverAdapter
+        scrollData()?.let {
+            discoverRv?.addOnScrollListener(it)
+        }
+    }
 
+    private fun scrollData(): EndlessOnScrollListener? {
+        return object : EndlessOnScrollListener() {
+            override fun onLoadMore() {
+                discoverViewModel.init(page++)
+            }
+        }
     }
 }

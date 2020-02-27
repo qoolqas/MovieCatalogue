@@ -28,7 +28,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/discoverTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="150dp"
@@ -63,7 +63,7 @@
 
 
         <ImageView
-            android:id="@+id/imgPoster"
+            android:id="@+id/discoverPoster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             card_view:layout_constraintDimensionRatio="H,2:3"

@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="125dp"
+    android:layout_width="175dp"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_marginEnd="4dp"
@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="125dp"
+        android:layout_width="175dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:elevation="8dp"
@@ -44,24 +44,26 @@
 
             <TextView
                 android:id="@+id/popularRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/res_circle_backgroundtv"
                 android:gravity="center"
+                android:elevation="4dp"
                 android:padding="8dp"
                 tools:text="7.6"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
 
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="1.0"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:layout_constraintVertical_bias="1.0" />
+                card_view:layout_constraintVertical_bias="1.0"
+                tools:ignore="SmallSp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -78,6 +80,7 @@
         android:layout_marginBottom="8dp"
         android:maxLines="1"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="14sp"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"

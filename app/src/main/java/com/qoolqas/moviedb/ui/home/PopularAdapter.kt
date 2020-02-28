@@ -32,6 +32,7 @@ class PopularAdapter(private val list: List<PopularResultsItem>) :
         holder.view.popularRating.text = list.get(position).voteAverage.toString()
         Glide.with(holder.view)
             .load("https://image.tmdb.org/t/p/w185" + list.get(position).posterPath)
+            .placeholder(R.color.gray)
             .into(holder.view.popularPoster)
 
         holder.view.setOnClickListener(View.OnClickListener {

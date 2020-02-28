@@ -30,6 +30,7 @@ class DiscoverAdapter(private val list: List<DiscoverResultsItem>) :
         holder.view.discoverTitle.text = list.get(position).title
         Glide.with(holder.view)
             .load("https://image.tmdb.org/t/p/w185" + list.get(position).posterPath)
+            .placeholder(R.color.gray)
             .into(holder.view.discoverPoster)
 
         holder.view.setOnClickListener(View.OnClickListener {

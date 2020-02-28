@@ -15,7 +15,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class DiscoverViewModel : ViewModel() {
-    private val discover = MutableLiveData<List<DiscoverResultsItem>>()
+    private var discover = MutableLiveData<List<DiscoverResultsItem>>()
     val api: String = BuildConfig.API_KEY
 
     fun init(page: Int){

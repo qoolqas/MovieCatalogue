@@ -21,6 +21,7 @@ class HomeFragment : Fragment() {
         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     private var popularRv: RecyclerView? = null
     private var popularPb: ProgressBar? = null
+    private var popularDivider : View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,16 +32,21 @@ class HomeFragment : Fragment() {
 
         popularRv = v.findViewById(R.id.popularRv)
         popularPb = v.findViewById(R.id.popularPb)
+        popularDivider = v.findViewById(R.id.popularDivider)
         popularRv?.setHasFixedSize(true)
         popularRv?.layoutManager = linearLayoutManager
         setHasOptionsMenu(true)
-        popularPb?.visibility = View.VISIBLE
+
+        popularPb?.visibility = View.GONE
+        popularDivider?.visibility = View.GONE
 
         popularViewModel = ViewModelProviders.of(this).get(PopularViewmodel::class.java)
         popularViewModel.init(1)
         popularViewModel.livePopular().observe(viewLifecycleOwner, Observer { popular ->
             initRv(popular)
             popularPb?.visibility = View.GONE
+            popularDivider?.visibility = View.VISIBLE
+
 
         })
 

@@ -1,6 +1,7 @@
 package com.qoolqas.moviedb.ui.discover
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,9 @@ class DiscoverFragment : Fragment() {
     private var discoverPb: ProgressBar? = null
     var page: Int = 1
 
+    var list: List<DiscoverResultsItem> = arrayListOf()
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,11 +41,12 @@ class DiscoverFragment : Fragment() {
         discoverRv?.layoutManager = linearLayoutManager
         setHasOptionsMenu(true)
         discoverPb?.visibility = View.VISIBLE
-
+        Log.d("onCreate,", "fafafa")
         discoverViewModel = ViewModelProviders.of(this).get(DiscoverViewModel::class.java)
         discoverViewModel.init(1)
         discoverViewModel.livePopular().observe(viewLifecycleOwner, Observer { discover ->
-            initRv(discover)
+            list = discover
+            initRv()
             discoverPb?.visibility = View.GONE
 
         })
@@ -49,8 +54,8 @@ class DiscoverFragment : Fragment() {
         return v
     }
 
-    private fun initRv(discover: List<DiscoverResultsItem>) {
-        discoverAdapter = DiscoverAdapter(discover)
+    private fun initRv() {
+        discoverAdapter = DiscoverAdapter(list)
         discoverRv?.adapter = discoverAdapter
         scrollData()?.let {
             discoverRv?.addOnScrollListener(it)
@@ -59,9 +64,12 @@ class DiscoverFragment : Fragment() {
 
     private fun scrollData(): EndlessOnScrollListener? {
         return object : EndlessOnScrollListener() {
+
             override fun onLoadMore() {
-                discoverViewModel.init(page++)
+                discoverViewModel.loadPopular(page++)
+
             }
+
         }
     }
 }

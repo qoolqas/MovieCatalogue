@@ -11,7 +11,6 @@ import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
 import com.qoolqas.moviedb.ui.DetailActivity
 import kotlinx.android.synthetic.main.item_card_discover.view.*
-import kotlinx.android.synthetic.main.item_card_popular.view.*
 
 class DiscoverAdapter(private val list: List<DiscoverResultsItem>) :
     RecyclerView.Adapter<DiscoverAdapter.ViewHolder>()  {
@@ -28,16 +27,18 @@ class DiscoverAdapter(private val list: List<DiscoverResultsItem>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.view.discoverTitle.text = list.get(position).title
+        holder.view.discoverRatingStar.rating = list.get(position).voteAverage!!.toFloat()/2
+        holder.view.discoverOverview.text = list.get(position).overview
         Glide.with(holder.view)
             .load("https://image.tmdb.org/t/p/w185" + list.get(position).posterPath)
             .placeholder(R.color.gray)
             .into(holder.view.discoverPoster)
 
-        holder.view.setOnClickListener(View.OnClickListener {
+        holder.view.setOnClickListener {
             val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
             intentDetail.putExtra(DetailActivity.EXTRA_ID, list.get(position).id)
             holder.view.context.startActivity(intentDetail)
             Log.d("id", list.get(position).id.toString())
-        })
+        }
     }
 }

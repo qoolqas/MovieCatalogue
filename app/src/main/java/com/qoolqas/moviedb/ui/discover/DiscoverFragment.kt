@@ -36,17 +36,21 @@ class DiscoverFragment : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_discover, container, false)
         discoverRv = v.findViewById(R.id.discoverRv)
-        discoverPb = v.findViewById(R.id.discoverPb)
         discoverRv?.setHasFixedSize(true)
         discoverRv?.layoutManager = linearLayoutManager
         setHasOptionsMenu(true)
-        discoverPb?.visibility = View.VISIBLE
+
+        discoverPb?.visibility = View.GONE
+
+
         Log.d("onCreate,", "fafafa")
         discoverViewModel = ViewModelProviders.of(this).get(DiscoverViewModel::class.java)
         discoverViewModel.init(1)
         discoverViewModel.livePopular().observe(viewLifecycleOwner, Observer { discover ->
             list = discover
             initRv()
+
+
             discoverPb?.visibility = View.GONE
 
         })

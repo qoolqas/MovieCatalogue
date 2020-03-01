@@ -18,4 +18,6 @@
     <string name="menu_discover">Discover</string>
     <string name="menu_favorite">Favorite</string>
     <string name="_10">/10</string>
+    <string name="view_all">View All</string>
+    <string name="popular_movie">Popular Movie</string>
 </resources>

@@ -1,13 +1,14 @@
 package com.qoolqas.moviedb.ui.discover
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import com.qoolqas.moviedb.BuildConfig
 import com.qoolqas.moviedb.connection.Client
 import com.qoolqas.moviedb.model.discover.DiscoverMovieResponse
 import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
-import com.qoolqas.moviedb.model.popular.PopularMovieResponse
-import com.qoolqas.moviedb.model.popular.PopularResultsItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

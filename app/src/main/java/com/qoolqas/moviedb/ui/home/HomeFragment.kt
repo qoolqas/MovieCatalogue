@@ -15,7 +15,7 @@ import com.qoolqas.moviedb.model.popular.PopularResultsItem
 
 class HomeFragment : Fragment() {
 
-    private lateinit var popularViewModel: PopularViewmodel
+    private lateinit var popularViewModel: PopularViewModel
     private lateinit var adapter: PopularAdapter
     private var linearLayoutManager: LinearLayoutManager =
         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         popularPb?.visibility = View.GONE
         popularDivider?.visibility = View.GONE
 
-        popularViewModel = ViewModelProviders.of(this).get(PopularViewmodel::class.java)
+        popularViewModel = ViewModelProviders.of(this).get(PopularViewModel::class.java)
         popularViewModel.init(1)
         popularViewModel.livePopular().observe(viewLifecycleOwner, Observer { popular ->
             initRv(popular)

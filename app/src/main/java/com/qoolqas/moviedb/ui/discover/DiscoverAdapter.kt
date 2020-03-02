@@ -26,19 +26,19 @@ class DiscoverAdapter(private val list: List<DiscoverResultsItem>) :
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.discoverTitle.text = list.get(position).title
-        holder.view.discoverRatingStar.rating = list.get(position).voteAverage!!.toFloat()/2
-        holder.view.discoverOverview.text = list.get(position).overview
+        holder.view.discoverTitle.text = list[position].title
+        holder.view.discoverRatingStar.rating = list[position].voteAverage!!.toFloat()/2
+        holder.view.discoverOverview.text = list[position].overview
         Glide.with(holder.view)
-            .load("https://image.tmdb.org/t/p/w185" + list.get(position).posterPath)
+            .load("https://image.tmdb.org/t/p/w185" + list[position].posterPath)
             .placeholder(R.color.gray)
             .into(holder.view.discoverPoster)
 
         holder.view.setOnClickListener {
             val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
-            intentDetail.putExtra(DetailActivity.EXTRA_ID, list.get(position).id)
+            intentDetail.putExtra(DetailActivity.EXTRA_ID, list[position].id)
             holder.view.context.startActivity(intentDetail)
-            Log.d("id", list.get(position).id.toString())
+            Log.d("id", list[position].id.toString())
         }
     }
 }

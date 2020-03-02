@@ -4,6 +4,7 @@ import com.qoolqas.moviedb.model.details.DetailsMovieResponse
 import com.qoolqas.moviedb.model.discover.DiscoverMovieResponse
 import com.qoolqas.moviedb.model.genre.GenreMovieResponse
 import com.qoolqas.moviedb.model.popular.PopularMovieResponse
+import com.qoolqas.moviedb.model.similiar.SimiliarResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -41,6 +42,14 @@ interface Service {
     fun getGenre(
         @Query("api_key") api: String
     ): Call<GenreMovieResponse>
+    //endregion
+
+    //region Similiar
+    @GET("movie/{movie_id}/similar")
+    fun getSimiliar(
+        @Query("api_key") api: String,
+        @Path("movie_id")id : Int
+    ): Call<SimiliarResponse>
     //endregion
 
 }

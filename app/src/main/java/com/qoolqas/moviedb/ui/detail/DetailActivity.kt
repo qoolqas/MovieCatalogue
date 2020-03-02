@@ -2,6 +2,8 @@ package com.qoolqas.moviedb.ui.detail
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -13,12 +15,14 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.qoolqas.moviedb.BuildConfig
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.connection.Client
+import com.qoolqas.moviedb.model.details.DetailsItem
 import com.qoolqas.moviedb.model.details.DetailsMovieResponse
-import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
 import com.qoolqas.moviedb.model.similiar.SimiliarResultsItem
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import retrofit2.Call
 import retrofit2.Response
+
 
 class DetailActivity : AppCompatActivity() {
     private val api: String = BuildConfig.API_KEY
@@ -29,6 +33,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var similiarAdapter: SimiliarAdapter
     private var linearLayoutManager: LinearLayoutManager =
         LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
     companion object {
         public const val EXTRA_ID = "Extra"
     }
@@ -39,6 +44,7 @@ class DetailActivity : AppCompatActivity() {
 
         val id = intent.getIntExtra(EXTRA_ID, 0)
         Log.d("iddetail", id.toString())
+
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar1)
         setSupportActionBar(toolbar)
@@ -70,6 +76,7 @@ class DetailActivity : AppCompatActivity() {
                         val respons: DetailsMovieResponse? = response.body()
 
                         detail_title.text = respons?.title
+
                         detail_description.text = respons?.overview
                         detail_rating_text.text = respons?.voteAverage.toString()
 
@@ -81,6 +88,14 @@ class DetailActivity : AppCompatActivity() {
                             .load("https://image.tmdb.org/t/p/original" + respons?.backdropPath)
                             .into(detail_backdrop)
                         detail_rating_star.rating = respons?.voteAverage!!.toFloat() / 2
+                        var i = 0
+
+                        for (item in respons.genres!!) {
+                            detail_genre.text = detail_genre.text.toString() + item + " "
+                            Log.d("Text", item.toString())
+
+                        }
+
 
                     } else {
                         Log.d("else", "Failure")
@@ -95,9 +110,8 @@ class DetailActivity : AppCompatActivity() {
 
         similiarViewModel = ViewModelProviders.of(this).get(SimiliarViewModel::class.java)
         similiarViewModel.init(1, id)
-        similiarViewModel.observerData(this,gotData())
+        similiarViewModel.observerData(this, gotData())
         initRv()
-
 
 
     }
@@ -108,6 +122,7 @@ class DetailActivity : AppCompatActivity() {
         Log.d("similiar", similiarAdapter.itemCount.toString())
 
     }
+
     private fun gotData(): Observer<MutableList<SimiliarResultsItem>> = Observer {
         similiar.clear()
         similiar.addAll(it)

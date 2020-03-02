@@ -1,9 +1,7 @@
 package com.qoolqas.moviedb.ui.discover
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.qoolqas.moviedb.BuildConfig
 import com.qoolqas.moviedb.connection.Client
 import com.qoolqas.moviedb.model.discover.DiscoverMovieResponse
@@ -35,7 +33,7 @@ class DiscoverViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful) {
                         val respons: DiscoverMovieResponse? = response.body()
-                        discover.postValue(discover.value?.apply { respons?.results?.let { addAll(it) } })
+                        discover.postValue(discover.value?.apply { addAll(respons?.results!!)})
 
                     } else {
                         Log.d("else", "Failure")
@@ -46,9 +44,10 @@ class DiscoverViewModel : ViewModel() {
             })
     }
 
-    fun livePopular(): LiveData<MutableList<DiscoverResultsItem>> {
-        return discover
-    }
+//    fun livePopular(): LiveData<MutableList<DiscoverResultsItem>> {
+//        return discover
+//    }
+    fun observerData(owner: LifecycleOwner,observer: Observer<MutableList<DiscoverResultsItem>>) = discover.observe(owner, observer)
 
 }
 

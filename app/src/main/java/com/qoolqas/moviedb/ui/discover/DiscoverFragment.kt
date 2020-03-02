@@ -20,13 +20,12 @@ class DiscoverFragment : Fragment() {
 
     private lateinit var discoverViewModel: DiscoverViewModel
     private lateinit var discoverAdapter: DiscoverAdapter
-    private var linearLayoutManager: LinearLayoutManager =
-        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    private var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     private var discoverRv: RecyclerView? = null
     private var discoverPb: ProgressBar? = null
     var page: Int = 1
 
-    var list: List<DiscoverResultsItem> = arrayListOf()
+    var list = mutableListOf<DiscoverResultsItem>()
 
 
     override fun onCreateView(
@@ -44,23 +43,30 @@ class DiscoverFragment : Fragment() {
 
 
         Log.d("onCreate,", "fafafa")
-        discoverViewModel = ViewModelProviders.of(this).get(DiscoverViewModel::class.java)
-        discoverViewModel.init(1)
-        discoverViewModel.livePopular().observe(viewLifecycleOwner, Observer { discover ->
-            list = discover
-            initRv()
 
-
-            discoverPb?.visibility = View.GONE
-
-        })
 
         return v
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRv()
+        discoverViewModel = ViewModelProviders.of(this).get(DiscoverViewModel::class.java)
+        discoverViewModel.init(1)
+        discoverViewModel.observerData(this,gotData())
+        discoverPb?.visibility = View.GONE
+        scrollData()
+    }
+
+    private fun gotData(): Observer<MutableList<DiscoverResultsItem>> = Observer {
+        list.clear()
+        list.addAll(it)
+        discoverAdapter.notifyDataSetChanged()
+    }
     private fun initRv() {
         discoverAdapter = DiscoverAdapter(list)
         discoverRv?.adapter = discoverAdapter
+        discoverAdapter.notifyDataSetChanged()
         scrollData()?.let {
             discoverRv?.addOnScrollListener(it)
         }
@@ -70,8 +76,11 @@ class DiscoverFragment : Fragment() {
         return object : EndlessOnScrollListener() {
 
             override fun onLoadMore() {
-                discoverViewModel.loadPopular(page+1)
-
+                if (list.isNotEmpty()) {
+                    Log.d("loadMore", "lof")
+                    page += 1
+                    discoverViewModel.loadPopular(page)
+                }
             }
 
         }

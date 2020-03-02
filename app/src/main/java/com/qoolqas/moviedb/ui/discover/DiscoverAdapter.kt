@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
-import com.qoolqas.moviedb.ui.DetailActivity
+import com.qoolqas.moviedb.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.item_card_discover.view.*
 
 class DiscoverAdapter(private val list: List<DiscoverResultsItem>) :

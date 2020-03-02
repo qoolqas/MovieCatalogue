@@ -1,16 +1,21 @@
-package com.qoolqas.moviedb.ui
+package com.qoolqas.moviedb.ui.detail
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.qoolqas.moviedb.BuildConfig
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.connection.Client
 import com.qoolqas.moviedb.model.details.DetailsMovieResponse
+import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
+import com.qoolqas.moviedb.model.similiar.SimiliarResultsItem
 import kotlinx.android.synthetic.main.activity_detail.*
 import retrofit2.Call
 import retrofit2.Response
@@ -18,6 +23,12 @@ import retrofit2.Response
 class DetailActivity : AppCompatActivity() {
     private val api: String = BuildConfig.API_KEY
 
+    private var similiar = mutableListOf<SimiliarResultsItem>()
+
+    private lateinit var similiarViewModel: SimiliarViewModel
+    private lateinit var similiarAdapter: SimiliarAdapter
+    private var linearLayoutManager: LinearLayoutManager =
+        LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     companion object {
         public const val EXTRA_ID = "Extra"
     }
@@ -26,7 +37,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        val id =intent.getIntExtra(EXTRA_ID, 0)
+        val id = intent.getIntExtra(EXTRA_ID, 0)
         Log.d("iddetail", id.toString())
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar1)
@@ -43,7 +54,9 @@ class DetailActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.transparent)
         )
 
-        Client().getApi().getDetails( id, api)
+
+
+        Client().getApi().getDetails(id, api)
             .enqueue(object : retrofit2.Callback<DetailsMovieResponse> {
                 override fun onFailure(call: Call<DetailsMovieResponse>, t: Throwable) {
                     Log.d("failure detail", t.message.toString())
@@ -67,7 +80,7 @@ class DetailActivity : AppCompatActivity() {
                         Glide.with(this@DetailActivity)
                             .load("https://image.tmdb.org/t/p/original" + respons?.backdropPath)
                             .into(detail_backdrop)
-                        detail_rating_star.rating = respons?.voteAverage!!.toFloat()/2
+                        detail_rating_star.rating = respons?.voteAverage!!.toFloat() / 2
 
                     } else {
                         Log.d("else", "Failure")
@@ -77,6 +90,30 @@ class DetailActivity : AppCompatActivity() {
 
             })
 
+        detail_similiarRv.setHasFixedSize(true)
+        detail_similiarRv.layoutManager = linearLayoutManager
+
+        similiarViewModel = ViewModelProviders.of(this).get(SimiliarViewModel::class.java)
+        similiarViewModel.init(1, id)
+        similiarViewModel.observerData(this,gotData())
+        initRv()
+
+
+
     }
+
+    private fun initRv() {
+        similiarAdapter = SimiliarAdapter(similiar)
+        detail_similiarRv.adapter = similiarAdapter
+        Log.d("similiar", similiarAdapter.itemCount.toString())
+
+    }
+    private fun gotData(): Observer<MutableList<SimiliarResultsItem>> = Observer {
+        similiar.clear()
+        similiar.addAll(it)
+        similiarAdapter.notifyDataSetChanged()
+        Log.d("itsize", it.size.toString())
+    }
+
 }
 

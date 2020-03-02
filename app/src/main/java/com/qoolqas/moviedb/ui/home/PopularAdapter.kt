@@ -11,7 +11,6 @@ import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.popular.PopularResultsItem
 import com.qoolqas.moviedb.ui.DetailActivity
 import com.qoolqas.moviedb.ui.DetailActivity.Companion.EXTRA_ID
-import kotlinx.android.synthetic.main.item_card_discover.view.*
 import kotlinx.android.synthetic.main.item_card_popular.view.*
 
 class PopularAdapter(private val list: List<PopularResultsItem>) :
@@ -28,20 +27,20 @@ class PopularAdapter(private val list: List<PopularResultsItem>) :
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.popularTitle.text = list.get(position).title
-        holder.view.popularRating.text = list.get(position).voteAverage.toString()
+        holder.view.popularTitle.text = list[position].title
+        holder.view.popularRating.text = list[position].voteAverage.toString()
         Glide.with(holder.view)
-            .load("https://image.tmdb.org/t/p/w185" + list.get(position).posterPath)
+            .load("https://image.tmdb.org/t/p/w185" + list[position].posterPath)
             .placeholder(R.color.gray)
             .into(holder.view.popularPoster)
 
-        holder.view.setOnClickListener(View.OnClickListener {
+        holder.view.setOnClickListener {
             val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
-            intentDetail.putExtra(EXTRA_ID, list.get(position).id)
+            intentDetail.putExtra(EXTRA_ID, list[position].id)
             holder.view.context.startActivity(intentDetail)
-            Log.d("id", list.get(position).id.toString())
+            Log.d("id", list[position].id.toString())
 
-        })
+        }
     }
 
 }

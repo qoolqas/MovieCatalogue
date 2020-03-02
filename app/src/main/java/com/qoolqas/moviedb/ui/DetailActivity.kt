@@ -2,7 +2,6 @@ package com.qoolqas.moviedb.ui
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.RatingBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -12,18 +11,12 @@ import com.qoolqas.moviedb.BuildConfig
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.connection.Client
 import com.qoolqas.moviedb.model.details.DetailsMovieResponse
-import com.qoolqas.moviedb.model.popular.PopularMovieResponse
-import com.qoolqas.moviedb.model.popular.PopularResultsItem
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.item_card_discover.view.*
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 class DetailActivity : AppCompatActivity() {
-    val api: String = BuildConfig.API_KEY
-    val popularList: List<PopularResultsItem>? = null
-    var ratingStar: RatingBar? = null
+    private val api: String = BuildConfig.API_KEY
 
     companion object {
         public const val EXTRA_ID = "Extra"

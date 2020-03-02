@@ -15,12 +15,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class DiscoverViewModel : ViewModel() {
-    private var discover = MutableLiveData<List<DiscoverResultsItem>>()
+    private var discover = MutableLiveData<MutableList<DiscoverResultsItem>>(mutableListOf())
     val api: String = BuildConfig.API_KEY
 
-    fun init(page: Int){
+    fun init(page: Int) {
         loadPopular(page)
     }
+
     fun loadPopular(page: Int) {
         Client().getApi().getDiscover(api, page)
             .enqueue(object : Callback<DiscoverMovieResponse> {
@@ -32,18 +33,20 @@ class DiscoverViewModel : ViewModel() {
                     call: Call<DiscoverMovieResponse>,
                     response: Response<DiscoverMovieResponse>
                 ) {
-                    if (response.isSuccessful){
+                    if (response.isSuccessful) {
                         val respons: DiscoverMovieResponse? = response.body()
-                        discover.postValue(respons?.results)
-                    }else{
-                        Log.d("else" ,"Failure")
+                        discover.postValue(discover.value?.apply { respons?.results?.let { addAll(it) } })
+
+                    } else {
+                        Log.d("else", "Failure")
                     }
 
                 }
 
             })
     }
-    fun livePopular(): LiveData<List<DiscoverResultsItem>> {
+
+    fun livePopular(): LiveData<MutableList<DiscoverResultsItem>> {
         return discover
     }
 

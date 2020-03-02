@@ -40,7 +40,7 @@ class DiscoverFragment : Fragment() {
         discoverRv?.layoutManager = linearLayoutManager
         setHasOptionsMenu(true)
 
-        discoverPb?.visibility = View.GONE
+        discoverPb?.visibility = View.VISIBLE
 
 
         Log.d("onCreate,", "fafafa")
@@ -70,7 +70,7 @@ class DiscoverFragment : Fragment() {
         return object : EndlessOnScrollListener() {
 
             override fun onLoadMore() {
-                discoverViewModel.loadPopular(page++)
+                discoverViewModel.loadPopular(page+1)
 
             }
 

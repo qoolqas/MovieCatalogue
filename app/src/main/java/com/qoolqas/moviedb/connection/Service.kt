@@ -47,8 +47,10 @@ interface Service {
     //region Similiar
     @GET("movie/{movie_id}/similar")
     fun getSimiliar(
+        @Path("movie_id")id : Int,
         @Query("api_key") api: String,
-        @Path("movie_id")id : Int
+        @Query("page") page: Int
+
     ): Call<SimiliarResponse>
     //endregion
 

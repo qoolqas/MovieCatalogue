@@ -111,20 +111,36 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/detail_title"
-                android:layout_width="match_parent"
+            android:id="@+id/detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="The Jungle Book" />
+
+
+            <TextView
+                android:id="@+id/detail_genre"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:textSize="24sp"
+                android:textSize="14sp"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="The Jungle Book" />
-
+                app:layout_constraintTop_toBottomOf="@+id/detail_title"
+                tools:text="Action Comedy" />
 
             <RatingBar
                 android:id="@+id/detail_rating_star"
@@ -132,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:isIndicator="true"
                 android:numStars="5"
@@ -140,23 +156,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detail_title" />
+                app:layout_constraintTop_toBottomOf="@+id/detail_genre" />
 
             <TextView
                 android:id="@+id/detail_rating_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:textColor="@color/colorAccent"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/detail_rating_star"
-                app:layout_constraintTop_toBottomOf="@+id/detail_title"
-                tools:text="6.7"
-                android:textColor="@color/colorAccent"/>
+                app:layout_constraintTop_toTopOf="@+id/detail_rating_star"
+                tools:text="6.7" />
 
             <TextView
                 android:id="@+id/detail_rating_static"
@@ -190,7 +205,7 @@
                 tools:text="Frozen adalah film fantasi musikal animasi komputer 3D Amerika 2013 yang diproduksi oleh Walt Disney Animation Studios dan dirilis oleh Walt Disney Pictures. Film fitur animasi Disney ke-53, terinspirasi oleh dongeng Hans Christian Andersen The Snow Queen." />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/detail_similiar"
+                android:id="@+id/detail_similiarRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -199,7 +214,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detail_description"
-                tools:listitem="@layout/item_card_popular">
+                tools:listitem="@layout/item_card_similiar">
 
             </androidx.recyclerview.widget.RecyclerView>
 

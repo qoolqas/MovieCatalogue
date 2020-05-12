@@ -1,5 +1,6 @@
 package com.qoolqas.moviedb.ui.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -59,6 +60,7 @@ class DetailActivity : AppCompatActivity() {
         collapsingToolbarLayout.setExpandedTitleColor(
             ContextCompat.getColor(this, R.color.transparent)
         )
+        detail_pbrv.visibility = View.VISIBLE
 
 
 
@@ -68,6 +70,7 @@ class DetailActivity : AppCompatActivity() {
                     Log.d("failure detail", t.message.toString())
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onResponse(
                     call: Call<DetailsMovieResponse>,
                     response: Response<DetailsMovieResponse>
@@ -90,11 +93,12 @@ class DetailActivity : AppCompatActivity() {
                         detail_rating_star.rating = respons?.voteAverage!!.toFloat() / 2
                         var i = 0
 
-                        for (item in respons.genres!!) {
+                        for (item in respons.genres?.get(i)?.name!!) {
                             detail_genre.text = detail_genre.text.toString() + item + " "
                             Log.d("Text", item.toString())
 
                         }
+
 
 
                     } else {
@@ -127,6 +131,7 @@ class DetailActivity : AppCompatActivity() {
         similiar.clear()
         similiar.addAll(it)
         similiarAdapter.notifyDataSetChanged()
+        detail_pbrv.visibility = View.GONE
         Log.d("itsize", it.size.toString())
     }
 

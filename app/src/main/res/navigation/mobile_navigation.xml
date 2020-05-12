@@ -14,12 +14,12 @@
     <fragment
         android:id="@+id/nav_discover"
         android:name="com.qoolqas.moviedb.ui.discover.DiscoverFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_discover"
         tools:layout="@layout/fragment_discover" />
 
     <fragment
         android:id="@+id/nav_favorite"
         android:name="com.qoolqas.moviedb.ui.favorite.FavoriteFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_favorite"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>

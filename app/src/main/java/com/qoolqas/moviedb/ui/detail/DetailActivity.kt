@@ -60,6 +60,7 @@ class DetailActivity : AppCompatActivity() {
         collapsingToolbarLayout.setExpandedTitleColor(
             ContextCompat.getColor(this, R.color.transparent)
         )
+        detail_pbrv.visibility = View.VISIBLE
 
 
 
@@ -99,6 +100,7 @@ class DetailActivity : AppCompatActivity() {
                         }
 
 
+
                     } else {
                         Log.d("else", "Failure")
                     }
@@ -129,6 +131,7 @@ class DetailActivity : AppCompatActivity() {
         similiar.clear()
         similiar.addAll(it)
         similiarAdapter.notifyDataSetChanged()
+        detail_pbrv.visibility = View.GONE
         Log.d("itsize", it.size.toString())
     }
 

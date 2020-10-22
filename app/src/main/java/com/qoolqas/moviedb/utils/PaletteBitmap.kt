@@ -5,9 +5,6 @@ import androidx.palette.graphics.Palette
 
 
 class PaletteBitmap(val bitmap: Bitmap, palette: Palette) {
-    val palette: Palette
+    val palette: Palette = palette
 
-    init {
-        this.palette = palette
-    }
 }

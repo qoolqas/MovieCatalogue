@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -16,11 +15,9 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.qoolqas.moviedb.BuildConfig
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.connection.Client
-import com.qoolqas.moviedb.model.details.DetailsItem
 import com.qoolqas.moviedb.model.details.DetailsMovieResponse
 import com.qoolqas.moviedb.model.similiar.SimiliarResultsItem
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 import retrofit2.Call
 import retrofit2.Response
 

@@ -97,8 +97,9 @@ class DetailActivity : AppCompatActivity() {
 //                            .load("https://image.tmdb.org/t/p/original" + respons?.backdropPath)
 //                            .into(detail_backdrop)
 
+
                         Picasso.with(this@DetailActivity)
-                            .load("https://image.tmdb.org/t/p/w185" + respons?.backdropPath)
+                            .load("https://image.tmdb.org/t/p/w500" + respons?.backdropPath)
                             .into(object : Target {
                                 override fun onBitmapLoaded(
                                     bitmap: Bitmap?,

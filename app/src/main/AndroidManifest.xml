@@ -25,9 +25,6 @@
 
         </activity>
         <activity android:name=".ui.detail.DetailActivity" />
-        <activity android:name=".SecondActivity">
-
-        </activity>
     </application>
 
 </manifest>

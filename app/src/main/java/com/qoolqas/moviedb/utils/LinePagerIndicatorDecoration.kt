@@ -10,11 +10,12 @@ import android.view.animation.Interpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import com.qoolqas.moviedb.R
 import kotlin.math.max
 
 
 class LinePagerIndicatorDecoration : ItemDecoration() {
-//    private val colorActive = -0x1
+    //    private val colorActive = -0x1
 //    private val colorInactive = 0x66FFFFFF
     private val colorActive = R.color.colorPrimaryDark
     private val colorInactive = R.color.colorPrimary

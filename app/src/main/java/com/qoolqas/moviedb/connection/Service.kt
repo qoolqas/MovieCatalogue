@@ -12,7 +12,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Service {
-    //region Popular
+    //region Now Playing
     @GET("movie/now_playing")
     fun getNowPlaying(
         @Query("api_key") api: String,

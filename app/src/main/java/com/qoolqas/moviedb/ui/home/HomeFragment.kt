@@ -14,6 +14,7 @@ import com.qoolqas.moviedb.model.nowplaying.NowPlayingResultsItem
 import com.qoolqas.moviedb.model.popular.PopularResultsItem
 import com.qoolqas.moviedb.ui.home.adapter.NowPlayingAdapter
 import com.qoolqas.moviedb.ui.home.adapter.PopularAdapter
+import com.qoolqas.moviedb.ui.home.viewmodel.NowPlayingViewModel
 import com.qoolqas.moviedb.ui.home.viewmodel.PopularViewModel
 import com.qoolqas.moviedb.utils.LinePagerIndicatorDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : Fragment() {
 
     private lateinit var popularViewModel: PopularViewModel
+    private lateinit var nowPlayingViewModel: NowPlayingViewModel
     private lateinit var popularAdapter: PopularAdapter
     private lateinit var nowPlayingAdapter: NowPlayingAdapter
     private var linearLayoutManager: LinearLayoutManager =
@@ -79,9 +81,17 @@ class HomeFragment : Fragment() {
         rvPager.apply {
             val snapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(rvPager)
-            rvPager.addItemDecoration(LinePagerIndicatorDecoration())
+//            rvPager.addItemDecoration(LinePagerIndicatorDecoration())
             rvPager.layoutManager = linearLayoutManagerPager
         }
+        nowPlayingViewModel = ViewModelProviders.of(this).get(NowPlayingViewModel::class.java)
+        nowPlayingViewModel.init(1)
+        nowPlayingViewModel.liveNowPlaying().observe(viewLifecycleOwner, Observer { nowPlaying ->
+            initNowPlaying(nowPlaying)
+            popularPb.visibility = View.GONE
+            popularDivider.visibility = View.VISIBLE
+
+        })
     }
 
 

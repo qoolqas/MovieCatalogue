@@ -8,15 +8,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
-import com.qoolqas.moviedb.model.nowplaying.NowPlayingResponse
 import com.qoolqas.moviedb.model.nowplaying.NowPlayingResultsItem
-import com.qoolqas.moviedb.model.popular.PopularResultsItem
 import com.qoolqas.moviedb.ui.detail.DetailActivity
 import com.qoolqas.moviedb.ui.detail.DetailActivity.Companion.EXTRA_ID
-import kotlinx.android.synthetic.main.item_card_popular.view.*
+import kotlinx.android.synthetic.main.item_pager_main.view.*
 
 class NowPlayingAdapter(private val list: List<NowPlayingResultsItem>) :
     RecyclerView.Adapter<NowPlayingAdapter.ViewHolder>() {
+    private val limit : Int = 3
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,16 +24,21 @@ class NowPlayingAdapter(private val list: List<NowPlayingResultsItem>) :
         )
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int {
+        return if(list.size > limit){
+            limit;
+        } else {
+            list.size
+        }
+    }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.popularTitle.text = list[position].title
-        holder.view.popularRating.text = list[position].voteAverage.toString()
+        holder.view.pagerTitle.text = list[position].title
         Glide.with(holder.view)
-            .load("https://image.tmdb.org/t/p/w185" + list[position].posterPath)
+            .load("https://image.tmdb.org/t/p/w500" + list[position].backdropPath)
             .placeholder(R.color.gray)
-            .into(holder.view.popularPoster)
+            .into(holder.view.pagerImage)
 
         holder.view.setOnClickListener {
             val intentDetail = Intent(holder.view.context, DetailActivity::class.java)

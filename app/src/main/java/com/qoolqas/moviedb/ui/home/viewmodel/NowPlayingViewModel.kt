@@ -19,9 +19,9 @@ class NowPlayingViewModel : ViewModel() {
     private val api: String = BuildConfig.API_KEY
 
     fun init(page: Int){
-        loadPopular(page)
+        loadNowPlaying(page)
     }
-    private fun loadPopular(page: Int) {
+    private fun loadNowPlaying(page: Int) {
         Client().getApi().getNowPlaying(api, page)
             .enqueue(object : Callback<NowPlayingResponse> {
                 override fun onFailure(call: Call<NowPlayingResponse>, t: Throwable) {
@@ -43,7 +43,7 @@ class NowPlayingViewModel : ViewModel() {
 
             })
     }
-    fun livePopular(): LiveData<List<NowPlayingResultsItem>> {
+    fun liveNowPlaying(): LiveData<List<NowPlayingResultsItem>> {
            return popular
     }
 }

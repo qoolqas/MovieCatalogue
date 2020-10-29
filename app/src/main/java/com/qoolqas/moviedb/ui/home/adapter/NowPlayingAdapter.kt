@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_pager_main.view.*
 
 class NowPlayingAdapter(private val list: List<NowPlayingResultsItem>) :
     RecyclerView.Adapter<NowPlayingAdapter.ViewHolder>() {
-    private val limit : Int = 3
+    private val limit : Int = 5
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,11 +37,12 @@ class NowPlayingAdapter(private val list: List<NowPlayingResultsItem>) :
         holder.view.pagerTitle.text = list[position].title
         Glide.with(holder.view)
             .load("https://image.tmdb.org/t/p/w500" + list[position].backdropPath)
-            .placeholder(R.color.gray)
+            .placeholder(R.drawable.exbackdrop)
             .into(holder.view.pagerImage)
 
         holder.view.setOnClickListener {
             val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
+            intentDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             intentDetail.putExtra(EXTRA_ID, list[position].id)
             holder.view.context.startActivity(intentDetail)
             Log.d("id", list[position].id.toString())

@@ -22,6 +22,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
+        android:maxLines="1"
+        android:fontFamily="@font/airbnbmedium"
         android:textColor="@color/white"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"

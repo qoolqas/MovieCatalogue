@@ -54,7 +54,7 @@ class DiscoverFragment : Fragment() {
         discoverViewModel = ViewModelProviders.of(this).get(DiscoverViewModel::class.java)
         discoverViewModel.init(1)
         discoverViewModel.observerData(this,gotData())
-        discoverPb?.visibility = View.GONE
+
         scrollData()
     }
 
@@ -62,6 +62,7 @@ class DiscoverFragment : Fragment() {
         list.clear()
         list.addAll(it)
         discoverAdapter.notifyDataSetChanged()
+        discoverPb?.visibility = View.GONE
     }
     private fun initRv() {
         discoverAdapter = DiscoverAdapter(list)

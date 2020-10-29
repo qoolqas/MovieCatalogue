@@ -1,4 +1,4 @@
-package com.qoolqas.moviedb.ui.home
+package com.qoolqas.moviedb.ui.home.adapter
 
 import android.content.Intent
 import android.util.Log
@@ -39,7 +39,6 @@ class PopularAdapter(private val list: List<PopularResultsItem>) :
             intentDetail.putExtra(EXTRA_ID, list[position].id)
             holder.view.context.startActivity(intentDetail)
             Log.d("id", list[position].id.toString())
-
         }
     }
 

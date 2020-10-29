@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.similiar.SimiliarResultsItem
-import com.qoolqas.moviedb.ui.home.PopularAdapter
 import kotlinx.android.synthetic.main.item_card_similiar.view.*
 
 class SimiliarAdapter(private val list: List<SimiliarResultsItem>) :

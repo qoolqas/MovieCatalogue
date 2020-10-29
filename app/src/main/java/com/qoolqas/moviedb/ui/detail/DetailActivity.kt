@@ -2,11 +2,13 @@ package com.qoolqas.moviedb.ui.detail
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -42,7 +44,7 @@ class DetailActivity : AppCompatActivity() {
         LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
     companion object {
-        public const val EXTRA_ID = "Extra"
+        const val EXTRA_ID = "Extra"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +60,6 @@ class DetailActivity : AppCompatActivity() {
 
         val collapsingToolbarLayout =
             findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar)
-
 
         collapsingToolbarLayout.setCollapsedTitleTextColor(
             ContextCompat.getColor(this, R.color.colorAccent)
@@ -105,7 +106,9 @@ class DetailActivity : AppCompatActivity() {
                                     bitmap: Bitmap?,
                                     from: LoadedFrom?
                                 ) {
-                                    assert(detail_backdrop != null)
+                                    if (BuildConfig.DEBUG && detail_backdrop == null) {
+                                        error("Assertion failed")
+                                    }
                                     detail_backdrop.setImageBitmap(bitmap)
                                     Palette.from(bitmap!!)
                                         .generate(PaletteAsyncListener { palette ->
@@ -121,7 +124,7 @@ class DetailActivity : AppCompatActivity() {
 //                                            backgroundGroup.setBackgroundColor(textSwatch.rgb)
 //                                            titleColorText.setTextColor(textSwatch.titleTextColor)
 //                                            bodyColorText.setTextColor(textSwatch.bodyTextColor)
-                                            val mutedColor = palette!!.getMutedColor(R.attr.colorPrimary)
+                                            val mutedColor = palette.getVibrantColor(R.attr.colorPrimary)
                                             collapsingToolbarLayout.setContentScrimColor(mutedColor)
                                         })
                                 }
@@ -135,7 +138,7 @@ class DetailActivity : AppCompatActivity() {
                             })
 
                         detail_rating_star.rating = respons?.voteAverage!!.toFloat() / 2
-                        var i = 0
+                        val i = 0
 
                         for (item in respons.genres?.get(i)?.name!!) {
                             detail_genre.text = detail_genre.text.toString() + item + " "

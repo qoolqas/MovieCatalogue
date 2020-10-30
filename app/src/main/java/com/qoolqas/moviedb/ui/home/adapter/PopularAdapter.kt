@@ -36,6 +36,7 @@ class PopularAdapter(private val list: List<PopularResultsItem>) :
 
         holder.view.setOnClickListener {
             val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
+            intentDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             intentDetail.putExtra(EXTRA_ID, list[position].id)
             holder.view.context.startActivity(intentDetail)
             Log.d("id", list[position].id.toString())

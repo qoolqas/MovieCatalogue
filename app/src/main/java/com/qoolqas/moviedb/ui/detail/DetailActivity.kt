@@ -2,10 +2,11 @@ package com.qoolqas.moviedb.ui.detail
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import androidx.palette.graphics.Palette
 import androidx.palette.graphics.Palette.PaletteAsyncListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.qoolqas.moviedb.BuildConfig
 import com.qoolqas.moviedb.R
@@ -40,9 +42,13 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var similiarAdapter: SimiliarAdapter
     private var linearLayoutManager: LinearLayoutManager =
         LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    private var appBarExpanded = true
+    private var collapsedMenu: Menu? = null
+
+
 
     companion object {
-        public const val EXTRA_ID = "Extra"
+        const val EXTRA_ID = "Extra"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +65,6 @@ class DetailActivity : AppCompatActivity() {
         val collapsingToolbarLayout =
             findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar)
 
-
         collapsingToolbarLayout.setCollapsedTitleTextColor(
             ContextCompat.getColor(this, R.color.colorAccent)
         )
@@ -68,6 +73,15 @@ class DetailActivity : AppCompatActivity() {
         )
         detail_pbrv.visibility = View.VISIBLE
 
+        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset -> //  Vertical offset == 0 indicates appBar is fully  expanded.
+            if (kotlin.math.abs(verticalOffset) > 200) {
+                appBarExpanded = false
+                invalidateOptionsMenu()
+            } else {
+                appBarExpanded = true
+                invalidateOptionsMenu()
+            }
+        })
 
 
         Client().getApi().getDetails(id, api)
@@ -105,7 +119,9 @@ class DetailActivity : AppCompatActivity() {
                                     bitmap: Bitmap?,
                                     from: LoadedFrom?
                                 ) {
-                                    assert(detail_backdrop != null)
+                                    if (BuildConfig.DEBUG && detail_backdrop == null) {
+                                        error("Assertion failed")
+                                    }
                                     detail_backdrop.setImageBitmap(bitmap)
                                     Palette.from(bitmap!!)
                                         .generate(PaletteAsyncListener { palette ->
@@ -121,7 +137,7 @@ class DetailActivity : AppCompatActivity() {
 //                                            backgroundGroup.setBackgroundColor(textSwatch.rgb)
 //                                            titleColorText.setTextColor(textSwatch.titleTextColor)
 //                                            bodyColorText.setTextColor(textSwatch.bodyTextColor)
-                                            val mutedColor = palette!!.getMutedColor(R.attr.colorPrimary)
+                                            val mutedColor = palette.getVibrantColor(R.attr.colorPrimary)
                                             collapsingToolbarLayout.setContentScrimColor(mutedColor)
                                         })
                                 }
@@ -135,24 +151,13 @@ class DetailActivity : AppCompatActivity() {
                             })
 
                         detail_rating_star.rating = respons?.voteAverage!!.toFloat() / 2
-                        var i = 0
+                        val i = 0
 
                         for (item in respons.genres?.get(i)?.name!!) {
                             detail_genre.text = detail_genre.text.toString() + item + " "
                             Log.d("Text", item.toString())
 
                         }
-
-//                        val rh: Int = getResources()
-//                            .getIdentifier(detail_backdrop, "drawable", getPackageName())
-//                        val bitmapPalette = BitmapFactory.decodeResource(
-//                            resources,
-//                            R.drawable.exposter
-//                        )
-//                        Palette.from(bitmapPalette).generate { palette ->
-//                            val mutedColor = palette!!.getMutedColor(R.attr.colorPrimary)
-//                            collapsingToolbarLayout.setContentScrimColor(mutedColor)
-//                        }
 
 
                     } else {
@@ -187,6 +192,38 @@ class DetailActivity : AppCompatActivity() {
         similiarAdapter.notifyDataSetChanged()
         detail_pbrv.visibility = View.GONE
         Log.d("itsize", it.size.toString())
+    }
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (collapsedMenu != null
+            && (!appBarExpanded || collapsedMenu!!.size() !== 1)
+        ) {
+            //collapsed
+            collapsedMenu!!.add("Add")
+                .setIcon(R.drawable.ic_favorite_black_24dp)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        } else {
+            //expanded
+        }
+        return super.onPrepareOptionsMenu(collapsedMenu)
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        collapsedMenu = menu
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+            R.id.action_settings -> return true
+        }
+        if (item.title === "Add") {
+            Toast.makeText(this, "clicked add", Toast.LENGTH_SHORT).show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

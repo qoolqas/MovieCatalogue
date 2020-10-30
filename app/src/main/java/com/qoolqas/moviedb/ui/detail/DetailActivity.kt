@@ -3,12 +3,11 @@ package com.qoolqas.moviedb.ui.detail
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -19,6 +18,7 @@ import androidx.palette.graphics.Palette
 import androidx.palette.graphics.Palette.PaletteAsyncListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.qoolqas.moviedb.BuildConfig
 import com.qoolqas.moviedb.R
@@ -42,6 +42,10 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var similiarAdapter: SimiliarAdapter
     private var linearLayoutManager: LinearLayoutManager =
         LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    private var appBarExpanded = true
+    private var collapsedMenu: Menu? = null
+
+
 
     companion object {
         const val EXTRA_ID = "Extra"
@@ -69,6 +73,15 @@ class DetailActivity : AppCompatActivity() {
         )
         detail_pbrv.visibility = View.VISIBLE
 
+        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset -> //  Vertical offset == 0 indicates appBar is fully  expanded.
+            if (kotlin.math.abs(verticalOffset) > 200) {
+                appBarExpanded = false
+                invalidateOptionsMenu()
+            } else {
+                appBarExpanded = true
+                invalidateOptionsMenu()
+            }
+        })
 
 
         Client().getApi().getDetails(id, api)
@@ -146,17 +159,6 @@ class DetailActivity : AppCompatActivity() {
 
                         }
 
-//                        val rh: Int = getResources()
-//                            .getIdentifier(detail_backdrop, "drawable", getPackageName())
-//                        val bitmapPalette = BitmapFactory.decodeResource(
-//                            resources,
-//                            R.drawable.exposter
-//                        )
-//                        Palette.from(bitmapPalette).generate { palette ->
-//                            val mutedColor = palette!!.getMutedColor(R.attr.colorPrimary)
-//                            collapsingToolbarLayout.setContentScrimColor(mutedColor)
-//                        }
-
 
                     } else {
                         Log.d("else", "Failure")
@@ -190,6 +192,38 @@ class DetailActivity : AppCompatActivity() {
         similiarAdapter.notifyDataSetChanged()
         detail_pbrv.visibility = View.GONE
         Log.d("itsize", it.size.toString())
+    }
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (collapsedMenu != null
+            && (!appBarExpanded || collapsedMenu!!.size() !== 1)
+        ) {
+            //collapsed
+            collapsedMenu!!.add("Add")
+                .setIcon(R.drawable.ic_favorite_black_24dp)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        } else {
+            //expanded
+        }
+        return super.onPrepareOptionsMenu(collapsedMenu)
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        collapsedMenu = menu
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+            R.id.action_settings -> return true
+        }
+        if (item.title === "Add") {
+            Toast.makeText(this, "clicked add", Toast.LENGTH_SHORT).show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

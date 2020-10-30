@@ -33,7 +33,6 @@ class SimiliarAdapter(private val list: List<SimiliarResultsItem>) :
 
         holder.view.setOnClickListener {
             val intentSimilar = Intent(holder.view.context, DetailActivity::class.java)
-            intentSimilar.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             intentSimilar.putExtra(DetailActivity.EXTRA_ID, list[position].id)
             holder.view.context.startActivity(intentSimilar)
             Log.d("id", list[position].id.toString())

@@ -56,8 +56,6 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         val id = intent.getIntExtra(EXTRA_ID, 0)
-        Log.d("iddetail", id.toString())
-
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar1)
         setSupportActionBar(toolbar)
@@ -134,9 +132,7 @@ class DetailActivity : AppCompatActivity() {
                                                 ).show()
                                                 return@PaletteAsyncListener
                                             }
-//                                            backgroundGroup.setBackgroundColor(textSwatch.rgb)
-//                                            titleColorText.setTextColor(textSwatch.titleTextColor)
-//                                            bodyColorText.setTextColor(textSwatch.bodyTextColor)
+
                                             val mutedColor = palette.getVibrantColor(R.attr.colorPrimary)
                                             collapsingToolbarLayout.setContentScrimColor(mutedColor)
                                         })

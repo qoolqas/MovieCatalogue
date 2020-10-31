@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
 import com.qoolqas.moviedb.utils.EndlessOnScrollListener
+import kotlinx.android.synthetic.main.fragment_discover.*
 
 
 class DiscoverFragment : Fragment() {
@@ -21,8 +22,6 @@ class DiscoverFragment : Fragment() {
     private lateinit var discoverViewModel: DiscoverViewModel
     private lateinit var discoverAdapter: DiscoverAdapter
     private var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-    private var discoverRv: RecyclerView? = null
-    private var discoverPb: ProgressBar? = null
     var page: Int = 1
 
     var list = mutableListOf<DiscoverResultsItem>()
@@ -33,23 +32,16 @@ class DiscoverFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_discover, container, false)
-        discoverRv = v.findViewById(R.id.discoverRv)
-        discoverRv?.setHasFixedSize(true)
-        discoverRv?.layoutManager = linearLayoutManager
-        setHasOptionsMenu(true)
-
-        discoverPb?.visibility = View.VISIBLE
-
-
-        Log.d("onCreate,", "fafafa")
-
-
-        return v
+        return inflater.inflate(R.layout.fragment_discover, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        discoverRv.setHasFixedSize(true)
+        discoverRv.layoutManager = linearLayoutManager
+        setHasOptionsMenu(true)
+
+        discoverPb.visibility = View.VISIBLE
         initRv()
         discoverViewModel = ViewModelProviders.of(this).get(DiscoverViewModel::class.java)
         discoverViewModel.init(1)

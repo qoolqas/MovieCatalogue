@@ -28,6 +28,7 @@ interface Service {
         @Query("page") page: Int
     ): Call<PopularMovieResponse>
 
+
     //endregion
 
     //region Discover
@@ -63,5 +64,11 @@ interface Service {
 
     ): Call<SimiliarResponse>
     //endregion
+    @GET("movie/{movie_id}/credits")
+    fun getCredits(
+        @Path("movie_id")id : Int,
+        @Query("api_key") api: String,
+        @Query("page") page: Int
+    ): Call<PopularMovieResponse>
 
 }

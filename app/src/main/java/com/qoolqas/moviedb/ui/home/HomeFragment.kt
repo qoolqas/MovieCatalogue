@@ -14,7 +14,7 @@ import com.qoolqas.moviedb.model.nowplaying.NowPlayingResultsItem
 import com.qoolqas.moviedb.model.popular.PopularResultsItem
 import com.qoolqas.moviedb.ui.home.adapter.NowPlayingAdapter
 import com.qoolqas.moviedb.ui.home.adapter.PopularAdapter
-import com.qoolqas.moviedb.ui.home.viewmodel.NowPlayingViewModel
+import com.qoolqas.moviedb.ui.detail.viewmodel.NowPlayingViewModel
 import com.qoolqas.moviedb.ui.home.viewmodel.PopularViewModel
 import com.qoolqas.moviedb.utils.LinePagerIndicatorDecoration
 import kotlinx.android.synthetic.main.fragment_home.*

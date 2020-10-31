@@ -25,6 +25,8 @@ import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.connection.Client
 import com.qoolqas.moviedb.model.details.DetailsMovieResponse
 import com.qoolqas.moviedb.model.similiar.SimiliarResultsItem
+import com.qoolqas.moviedb.ui.detail.adapter.SimiliarAdapter
+import com.qoolqas.moviedb.ui.detail.viewmodel.SimiliarViewModel
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
@@ -176,7 +178,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initRv() {
-        similiarAdapter = SimiliarAdapter(similiar)
+        similiarAdapter =
+            SimiliarAdapter(similiar)
         detail_similiarRv.adapter = similiarAdapter
         Log.d("similiar", similiarAdapter.itemCount.toString())
 

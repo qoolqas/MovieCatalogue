@@ -1,4 +1,4 @@
-package com.qoolqas.moviedb.ui.detail
+package com.qoolqas.moviedb.ui.detail.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner

@@ -1,4 +1,4 @@
-package com.qoolqas.moviedb.model.details.credits
+package com.qoolqas.moviedb.model.credits
 
 import com.google.gson.annotations.SerializedName
 

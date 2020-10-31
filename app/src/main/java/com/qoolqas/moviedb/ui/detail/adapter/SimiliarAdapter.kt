@@ -1,7 +1,6 @@
-package com.qoolqas.moviedb.ui.detail
+package com.qoolqas.moviedb.ui.detail.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.similiar.SimiliarResultsItem
+import com.qoolqas.moviedb.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.item_card_similiar.view.*
 
 class SimiliarAdapter(private val list: List<SimiliarResultsItem>) :
@@ -35,7 +35,6 @@ class SimiliarAdapter(private val list: List<SimiliarResultsItem>) :
             val intentSimilar = Intent(holder.view.context, DetailActivity::class.java)
             intentSimilar.putExtra(DetailActivity.EXTRA_ID, list[position].id)
             holder.view.context.startActivity(intentSimilar)
-            Log.d("id", list[position].id.toString())
 
         }
     }

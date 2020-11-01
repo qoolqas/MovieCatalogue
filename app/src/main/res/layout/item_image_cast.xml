@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/detail_cast_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="fill"
+        android:contentDescription="@string/image"
+        android:scaleType="centerCrop"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.0"
+        tools:src="@drawable/ic_launcher_background" />
+
+
+    <TextView
+        android:id="@+id/detail_cast_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:fontFamily="@font/airbnbmedium"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/detail_cast_image"
+        tools:text="Captain America" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

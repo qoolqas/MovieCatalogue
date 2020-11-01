@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.qoolqas.moviedb.R
+import com.qoolqas.moviedb.model.credits.CastItem
 import com.qoolqas.moviedb.model.similiar.SimiliarResultsItem
 import com.qoolqas.moviedb.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.item_card_similiar.view.*
 import kotlinx.android.synthetic.main.item_image_cast.view.*
 
-class CreditAdapter(private val list: List<SimiliarResultsItem>) :
+class CreditAdapter(private val list: List<CastItem>) :
     RecyclerView.Adapter<CreditAdapter.ViewHolder>() {
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
@@ -26,10 +28,11 @@ class CreditAdapter(private val list: List<SimiliarResultsItem>) :
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.detail_cast_name.text = list[position].title
+        holder.view.detail_cast_name.text = list[position].name
         Glide.with(holder.view)
-            .load("https://image.tmdb.org/t/p/w185" + list[position].posterPath)
+            .load("https://image.tmdb.org/t/p/w185" + list[position].profilePath)
             .placeholder(R.color.gray)
+            .apply(RequestOptions.circleCropTransform())
             .into(holder.view.detail_cast_image)
 
         holder.view.setOnClickListener {

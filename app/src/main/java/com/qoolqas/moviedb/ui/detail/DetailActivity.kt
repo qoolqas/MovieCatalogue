@@ -23,9 +23,12 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.qoolqas.moviedb.BuildConfig
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.connection.Client
+import com.qoolqas.moviedb.model.credits.CastItem
 import com.qoolqas.moviedb.model.details.DetailsMovieResponse
 import com.qoolqas.moviedb.model.similiar.SimiliarResultsItem
+import com.qoolqas.moviedb.ui.detail.adapter.CreditAdapter
 import com.qoolqas.moviedb.ui.detail.adapter.SimiliarAdapter
+import com.qoolqas.moviedb.ui.detail.viewmodel.CreditsViewModel
 import com.qoolqas.moviedb.ui.detail.viewmodel.SimiliarViewModel
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
@@ -39,9 +42,13 @@ class DetailActivity : AppCompatActivity() {
     private val api: String = BuildConfig.API_KEY
 
     private var similiar = mutableListOf<SimiliarResultsItem>()
+    private var credit = mutableListOf<CastItem>()
 
     private lateinit var similiarViewModel: SimiliarViewModel
+    private lateinit var creditsViewModel: CreditsViewModel
+
     private lateinit var similiarAdapter: SimiliarAdapter
+    private lateinit var creditAdapter: CreditAdapter
     private var linearLayoutManager: LinearLayoutManager =
         LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     private var appBarExpanded = true
@@ -178,10 +185,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initRv() {
-        similiarAdapter =
-            SimiliarAdapter(similiar)
+        similiarAdapter = SimiliarAdapter(similiar)
         detail_similiarRv.adapter = similiarAdapter
-        Log.d("similiar", similiarAdapter.itemCount.toString())
 
     }
 
@@ -192,6 +197,12 @@ class DetailActivity : AppCompatActivity() {
         detail_pbrv.visibility = View.GONE
         Log.d("itsize", it.size.toString())
     }
+    private fun gotDataCredits(): Observer<MutableList<CastItem>> = Observer {
+        credit.clear()
+        credit.addAll(it)
+        creditAdapter.notifyDataSetChanged()
+    }
+
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         if (collapsedMenu != null
             && (!appBarExpanded || collapsedMenu!!.size() !== 1)

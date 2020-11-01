@@ -1,6 +1,7 @@
 package com.qoolqas.moviedb.connection
 
 import com.qoolqas.moviedb.model.details.DetailsMovieResponse
+import com.qoolqas.moviedb.model.credits.CreditsResponse
 import com.qoolqas.moviedb.model.discover.DiscoverMovieResponse
 import com.qoolqas.moviedb.model.genre.GenreMovieResponse
 import com.qoolqas.moviedb.model.nowplaying.NowPlayingResponse
@@ -27,6 +28,7 @@ interface Service {
         @Query("api_key") api: String,
         @Query("page") page: Int
     ): Call<PopularMovieResponse>
+
 
     //endregion
 
@@ -63,5 +65,11 @@ interface Service {
 
     ): Call<SimiliarResponse>
     //endregion
+    @GET("movie/{movie_id}/credits")
+    fun getCredits(
+        @Path("movie_id")id : Int,
+        @Query("api_key") api: String,
+        @Query("language") language: String
+    ): Call<CreditsResponse>
 
 }

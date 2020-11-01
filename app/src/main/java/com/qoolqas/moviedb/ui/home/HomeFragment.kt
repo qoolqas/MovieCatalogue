@@ -14,7 +14,7 @@ import com.qoolqas.moviedb.model.nowplaying.NowPlayingResultsItem
 import com.qoolqas.moviedb.model.popular.PopularResultsItem
 import com.qoolqas.moviedb.ui.home.adapter.NowPlayingAdapter
 import com.qoolqas.moviedb.ui.home.adapter.PopularAdapter
-import com.qoolqas.moviedb.ui.home.viewmodel.NowPlayingViewModel
+import com.qoolqas.moviedb.ui.detail.viewmodel.NowPlayingViewModel
 import com.qoolqas.moviedb.ui.home.viewmodel.PopularViewModel
 import com.qoolqas.moviedb.utils.LinePagerIndicatorDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -25,38 +25,17 @@ class HomeFragment : Fragment() {
     private lateinit var nowPlayingViewModel: NowPlayingViewModel
     private lateinit var popularAdapter: PopularAdapter
     private lateinit var nowPlayingAdapter: NowPlayingAdapter
+
     private var linearLayoutManager: LinearLayoutManager =
         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-    private var linearLayoutManagerPager: LinearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//    private var popularRv: RecyclerView? = null
-//    private var popularPb: ProgressBar? = null
-//    private var popularDivider : View? = null
+    private var linearLayoutManagerPager: LinearLayoutManager =
+        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-//        popularRv = v.findViewById(R.id.popularRv)
-//        popularPb = v.findViewById(R.id.popularPb)
-//        popularDivider = v.findViewById(R.id.popularDivider)
-//        popularRv?.setHasFixedSize(true)
-//        popularRv?.layoutManager = linearLayoutManager
-//        setHasOptionsMenu(true)
-//
-//        popularPb?.visibility = View.VISIBLE
-//        popularDivider?.visibility = View.GONE
-//
-//        popularViewModel = ViewModelProviders.of(this).get(PopularViewModel::class.java)
-//        popularViewModel.init(1)
-//        popularViewModel.livePopular().observe(viewLifecycleOwner, Observer { popular ->
-//            initRv(popular)
-//            popularPb?.visibility = View.GONE
-//            popularDivider?.visibility = View.VISIBLE
-//
-//        })
-
         return inflater.inflate(R.layout.fragment_home, container, false)
 
     }

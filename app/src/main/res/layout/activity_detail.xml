@@ -16,11 +16,11 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
             app:contentScrim="@color/white"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:fitsSystemWindows="true">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -31,13 +31,13 @@
                     android:id="@+id/detail_backdrop"
                     android:layout_width="600dp"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/content_image"
+                    android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:fitsSystemWindows="true"
-                    tools:src="@drawable/exbackdrop"
-                    android:contentDescription="@string/content_image" />
+                    tools:src="@drawable/exbackdrop" />
 
                 <View
                     android:layout_width="match_parent"
@@ -64,7 +64,6 @@
                     android:layout_width="150dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
-                    app:layout_constraintDimensionRatio="H,2:3"
                     android:layout_marginTop="64dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="16dp"
@@ -72,6 +71,7 @@
                     android:elevation="16dp"
                     app:cardCornerRadius="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="H,2:3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -82,9 +82,9 @@
                         android:id="@+id/detail_poster"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:contentDescription="@string/content_image"
                         android:scaleType="fitXY"
-                        tools:src="@drawable/exposter"
-                        android:contentDescription="@string/content_image" />
+                        tools:src="@drawable/exposter" />
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,19 +111,19 @@
             android:layout_height="match_parent">
 
             <TextView
-            android:id="@+id/detail_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="The Jungle Book" />
+                android:id="@+id/detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="The Jungle Book" />
 
 
             <TextView
@@ -133,8 +133,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:textSize="14sp"
                 android:textColor="@color/colorAccent"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -178,8 +178,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginBottom="4dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
                 android:text="@string/_10"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/detail_rating_text"
@@ -232,7 +232,9 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/detail_btn_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"

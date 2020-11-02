@@ -36,6 +36,7 @@ import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.activity_detail.*
 import retrofit2.Call
 import retrofit2.Response
+import java.util.*
 
 
 class DetailActivity : AppCompatActivity() {
@@ -49,10 +50,11 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var similiarAdapter: SimiliarAdapter
     private lateinit var creditAdapter: CreditAdapter
-    private var linearLayoutManager: LinearLayoutManager =
-        LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    private var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    private var linearLayoutManagerCast: LinearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     private var appBarExpanded = true
     private var collapsedMenu: Menu? = null
+    private var language = Locale.getDefault().toLanguageTag()
 
 
 
@@ -179,6 +181,13 @@ class DetailActivity : AppCompatActivity() {
         similiarViewModel = ViewModelProviders.of(this).get(SimiliarViewModel::class.java)
         similiarViewModel.init(1, id)
         similiarViewModel.observerData(this, gotData())
+
+        detail_cast_rv.setHasFixedSize(true)
+        detail_cast_rv.layoutManager = linearLayoutManagerCast
+
+        creditsViewModel = ViewModelProviders.of(this).get(CreditsViewModel::class.java)
+        creditsViewModel.init(language, id)
+        creditsViewModel.observerData(this, gotDataCredits())
         initRv()
 
 
@@ -186,7 +195,9 @@ class DetailActivity : AppCompatActivity() {
 
     private fun initRv() {
         similiarAdapter = SimiliarAdapter(similiar)
+        creditAdapter = CreditAdapter(credit)
         detail_similiarRv.adapter = similiarAdapter
+        detail_cast_rv.adapter = creditAdapter
 
     }
 

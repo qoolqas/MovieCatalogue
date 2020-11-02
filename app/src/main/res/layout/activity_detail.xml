@@ -117,6 +117,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:fontFamily="@font/airbnbmedium"
+                android:textColor="@color/black_text"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:textColor="@color/colorAccent"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -204,19 +206,52 @@
                 app:layout_constraintTop_toBottomOf="@+id/detail_rating_star"
                 tools:text="Frozen adalah film fantasi musikal animasi komputer 3D Amerika 2013 yang diproduksi oleh Walt Disney Animation Studios dan dirilis oleh Walt Disney Pictures. Film fitur animasi Disney ke-53, terinspirasi oleh dongeng Hans Christian Andersen The Snow Queen." />
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/airbnbmedium"
+                android:text="Cast"
+                android:textColor="@color/black_text"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detail_description" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detail_cast_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:clipToPadding="false"
+                android:padding="4dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                tools:listitem="@layout/item_image_cast">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/detail_similiarRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
+                android:clipToPadding="false"
+                android:padding="4dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detail_description"
+                app:layout_constraintTop_toBottomOf="@+id/detail_cast_rv"
                 tools:listitem="@layout/item_card_similiar">
 
             </androidx.recyclerview.widget.RecyclerView>

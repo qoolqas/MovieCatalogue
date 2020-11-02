@@ -35,11 +35,11 @@ class CreditAdapter(private val list: List<CastItem>) :
             .apply(RequestOptions.circleCropTransform())
             .into(holder.view.detail_cast_image)
 
-        holder.view.setOnClickListener {
-            val intentSimilar = Intent(holder.view.context, DetailActivity::class.java)
-            intentSimilar.putExtra(DetailActivity.EXTRA_ID, list[position].id)
-            holder.view.context.startActivity(intentSimilar)
-
-        }
+//        holder.view.setOnClickListener {
+//            val intentSimilar = Intent(holder.view.context, DetailActivity::class.java)
+//            intentSimilar.putExtra(DetailActivity.EXTRA_ID, list[position].id)
+//            holder.view.context.startActivity(intentSimilar)
+//
+//        }
     }
 }

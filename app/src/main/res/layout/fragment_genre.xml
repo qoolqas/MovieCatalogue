@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_gravity="center"
     android:layout_height="match_parent"
     tools:context=".ui.discover.DiscoverFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/discoverRv"
-        android:layout_width="match_parent"
+        android:id="@+id/genreRv"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_gravity="center_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_card_discover">
+        tools:listitem="@layout/item_card_genre">
 
     </androidx.recyclerview.widget.RecyclerView>
 

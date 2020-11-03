@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_movie_black_24dp"
             android:title="@string/menu_discover" />
         <item
+            android:id="@+id/nav_genre"
+            android:icon="@drawable/ic_movie_black_24dp"
+            android:title="@string/menu_genre" />
+        <item
             android:id="@+id/nav_favorite"
             android:icon="@drawable/ic_favorite_black_24dp"
             android:title="@string/menu_favorite" />

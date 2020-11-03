@@ -25,7 +25,13 @@ class CreditAdapter(private val list: List<CastItem>) :
         )
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int {
+        return if(list.size > 10){
+            10
+        } else {
+            list.size
+        }
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.view.detail_cast_name.text = list[position].name

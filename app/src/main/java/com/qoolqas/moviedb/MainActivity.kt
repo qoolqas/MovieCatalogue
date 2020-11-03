@@ -1,9 +1,8 @@
 package com.qoolqas.moviedb
 
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -45,6 +44,21 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onBackPressed() {
+
+        AlertDialog.Builder(this)
+            .setMessage(R.string.exit)
+            .setPositiveButton(
+                R.string.yes
+            ) { arg0, arg1 ->
+
+                finish()
+            }
+            .create()
+            .show()
+
     }
 
 

@@ -39,6 +39,7 @@ import retrofit2.Response
 import java.util.*
 
 
+@Suppress("NAME_SHADOWING")
 class DetailActivity : AppCompatActivity() {
     private val api: String = BuildConfig.API_KEY
 
@@ -107,14 +108,27 @@ class DetailActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val respons: DetailsMovieResponse? = response.body()
 
-                        detail_title.text = respons?.title
+                        val timeSec: Long = respons?.runtime!!.toLong() // Json output
+                        Log.d("asd123" , timeSec.toString())
 
-                        detail_description.text = respons?.overview
-                        detail_rating_text.text = respons?.voteAverage.toString()
+                        val hours = timeSec.toInt() / 3600
+                        var temp = timeSec.toInt() - hours * 3600
+                        val mins = temp / 60
+                        temp -= mins * 60
+                        val secs = temp
 
-                        collapsingToolbarLayout.title = respons?.title
+                        val requiredFormat =
+                            "$mins Hours $secs Minute"
+                        detail_runtime.text = "Duration : $requiredFormat"
+
+                        detail_title.text = respons.title
+
+                        detail_description.text = respons.overview
+                        detail_rating_text.text = respons.voteAverage.toString()
+
+                        collapsingToolbarLayout.title = respons.title
                         Glide.with(this@DetailActivity)
-                            .load("https://image.tmdb.org/t/p/w185" + respons?.posterPath)
+                            .load("https://image.tmdb.org/t/p/w185" + respons.posterPath)
                             .into(detail_poster)
 //                        Glide.with(this@DetailActivity)
 //                            .load("https://image.tmdb.org/t/p/original" + respons?.backdropPath)
@@ -122,7 +136,7 @@ class DetailActivity : AppCompatActivity() {
 
 
                         Picasso.with(this@DetailActivity)
-                            .load("https://image.tmdb.org/t/p/w500" + respons?.backdropPath)
+                            .load("https://image.tmdb.org/t/p/w500" + respons.backdropPath)
                             .into(object : Target {
                                 override fun onBitmapLoaded(
                                     bitmap: Bitmap?,
@@ -160,12 +174,16 @@ class DetailActivity : AppCompatActivity() {
                         detail_rating_star.rating = respons?.voteAverage!!.toFloat() / 2
                         val i = 0
 
-                        for (item in respons.genres?.get(i)?.name!!) {
-                            detail_genre.text = detail_genre.text.toString() + item + " "
-                            Log.d("Text", item.toString())
-
+//                        for (item in respons.genres?.get(i)?.name!!) {
+//                            detail_genre.text = detail_genre.text.toString() + item + " "
+//                            Log.d("Text", item.toString())
+//
+//                        }
+                        for (i in respons.genres?.indices!!) {
+                            println(respons.genres[i])
+                            detail_genre.text = detail_genre.text.toString() + respons.genres[i].name + ", "
+                            Log.d("Text", respons.genres[i].name.toString())
                         }
-
 
                     } else {
                         Log.d("else", "Failure")

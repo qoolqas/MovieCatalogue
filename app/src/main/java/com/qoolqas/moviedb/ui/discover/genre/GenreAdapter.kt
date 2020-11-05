@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
@@ -34,12 +36,15 @@ class GenreAdapter(private val list: List<GenreStaticData>) :
             .placeholder(R.color.gray)
             .into(holder.view.genre_background)
 
-//        holder.view.setOnClickListener {
+        holder.view.setOnClickListener {
+            val action = GenreFragmentDirections.actionNavGenreToNavSearchGenre(list[position])
+            Navigation.findNavController(it).navigate(action)
 //            val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
 //            intentDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
 //            intentDetail.putExtra(DetailActivity.EXTRA_ID, list[position].id)
 //            holder.view.context.startActivity(intentDetail)
-//            Log.d("id", list[position].id.toString())
-//        }
+            Log.d("id", list[position].id.toString())
+        }
     }
+
 }

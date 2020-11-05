@@ -15,7 +15,7 @@ import retrofit2.Response
 
 class DiscoverViewModel : ViewModel() {
     private var discover = MutableLiveData<MutableList<DiscoverResultsItem>>(mutableListOf())
-    val api: String = BuildConfig.API_KEY
+    private val api: String = BuildConfig.API_KEY
 
     fun init(page: Int) {
         loadPopular(page)

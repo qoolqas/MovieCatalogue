@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.genrestatic.GenreStaticData
 import kotlinx.android.synthetic.main.fragment_genre.*
+
 
 
 class GenreFragment : Fragment() {
@@ -48,6 +51,5 @@ class GenreFragment : Fragment() {
             genreRv.layoutManager = GridLayoutManager(context, 2)
             adapter = GenreAdapter(genreData)
         }
-
     }
 }

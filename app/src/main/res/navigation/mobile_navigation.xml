@@ -26,15 +26,26 @@
         android:id="@+id/nav_genre"
         android:name="com.qoolqas.moviedb.ui.discover.genre.GenreFragment"
         android:label="@string/menu_genre"
-        tools:layout="@layout/fragment_genre" />
+        tools:layout="@layout/fragment_genre" >
+        <action
+            android:id="@+id/action_nav_genre_to_nav_search_genre"
+            app:destination="@id/nav_search_genre" >
+<!--            <argument-->
+<!--                android:name="genre_id"-->
+<!--                app:argType="string"-->
+<!--                android:defaultValue="0" />-->
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/nav_search_genre"
         android:name="com.qoolqas.moviedb.ui.discover.genre.SearchGenreFragment"
         android:label="@string/menu_genre"
         tools:layout="@layout/fragment_search_genre" >
+
+
         <argument
-            android:name="myArg"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:name="genre_id"
+            app:argType="com.qoolqas.moviedb.model.genrestatic.GenreStaticData"
+            app:nullable="true" />
     </fragment>
 </navigation>

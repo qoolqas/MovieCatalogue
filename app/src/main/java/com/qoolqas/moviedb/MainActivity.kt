@@ -46,7 +46,20 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-
+//    override fun onBackPressed() {
+//
+//        AlertDialog.Builder(this)
+//            .setMessage(R.string.exit)
+//            .setPositiveButton(
+//                R.string.yes
+//            ) { arg0, arg1 ->
+//
+//                finish()
+//            }
+//            .create()
+//            .show()
+//
+//    }
 
 
     override fun onSupportNavigateUp(): Boolean {

@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.genrestatic.GenreStaticData
 import kotlinx.android.synthetic.main.fragment_genre.*
-
 
 
 class GenreFragment : Fragment() {
@@ -36,6 +36,7 @@ class GenreFragment : Fragment() {
         GenreStaticData(R.drawable.exposter, "War",10752),
         GenreStaticData(R.drawable.exposter, "Western",37)
     )
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,7 +53,14 @@ class GenreFragment : Fragment() {
             adapter = GenreAdapter(genreData)
         }
     }
-    override fun onBackPressed(){
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity!!.onBackPressedDispatcher.addCallback(this){
+            findNavController().navigateUp()
+        }
     }
+    //    override fun onBackPressed(){
+//        Navigation.createNavigateOnClickListener(R.id.action_nav_genre_to_nav_home)
+//    }
 }

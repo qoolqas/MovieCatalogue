@@ -37,7 +37,7 @@ class NowPlayingAdapter(private val list: List<NowPlayingResultsItem>) :
         holder.view.pagerTitle.text = list[position].title
         Glide.with(holder.view)
             .load("https://image.tmdb.org/t/p/w500" + list[position].backdropPath)
-            .placeholder(R.drawable.exbackdrop)
+            .placeholder(R.color.gray)
             .into(holder.view.pagerImage)
 
         holder.view.setOnClickListener {

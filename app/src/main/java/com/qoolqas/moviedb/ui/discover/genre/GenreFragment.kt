@@ -52,4 +52,7 @@ class GenreFragment : Fragment() {
             adapter = GenreAdapter(genreData)
         }
     }
+    override fun onBackPressed(){
+
+    }
 }

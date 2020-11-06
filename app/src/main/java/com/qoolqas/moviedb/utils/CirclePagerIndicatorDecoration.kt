@@ -131,7 +131,7 @@ class CirclePagerIndicatorDecoration : ItemDecoration() {
     }
 
     companion object {
-        private val DP: Float = android.content.res.Resources.getSystem().getDisplayMetrics().density
+        private val DP: Float = android.content.res.Resources.getSystem().displayMetrics.density
     }
 
     init {

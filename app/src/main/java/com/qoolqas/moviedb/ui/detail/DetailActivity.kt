@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.palette.graphics.Palette
 import androidx.palette.graphics.Palette.PaletteAsyncListener
@@ -42,7 +43,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-@Suppress("NAME_SHADOWING", "DEPRECATED_IDENTITY_EQUALS")
+@Suppress("NAME_SHADOWING", "DEPRECATED_IDENTITY_EQUALS",
+    "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS"
+)
 class DetailActivity : AppCompatActivity() {
     private val api: String = BuildConfig.API_KEY
 
@@ -86,7 +89,7 @@ class DetailActivity : AppCompatActivity() {
         )
         detail_pbrv.visibility = View.VISIBLE
 
-        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset -> //  Vertical offset == 0 indicates appBar is fully  expanded.
+        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset -> //  Vertical offset == 0 indicates appBar is fully  expanded.
             if (kotlin.math.abs(verticalOffset) > 200) {
                 appBarExpanded = false
                 invalidateOptionsMenu()
@@ -178,7 +181,7 @@ class DetailActivity : AppCompatActivity() {
                                 }
                             })
 
-                        detail_rating_star.rating = respons?.voteAverage!!.toFloat() / 2
+                        detail_rating_star.rating = respons.voteAverage!!.toFloat() / 2
                         for (i in respons.genres?.indices!!) {
                             println(respons.genres[i])
                             detail_genre.text = detail_genre.text.toString() + respons.genres[i].name + ", "
@@ -196,14 +199,14 @@ class DetailActivity : AppCompatActivity() {
         detail_similiarRv.setHasFixedSize(true)
         detail_similiarRv.layoutManager = linearLayoutManager
 
-        similiarViewModel = ViewModelProviders.of(this).get(SimiliarViewModel::class.java)
+        similiarViewModel = ViewModelProvider(this).get(SimiliarViewModel::class.java)
         similiarViewModel.init(1, id)
         similiarViewModel.observerData(this, gotData())
 
         detail_cast_rv.setHasFixedSize(true)
         detail_cast_rv.layoutManager = linearLayoutManagerCast
 
-        creditsViewModel = ViewModelProviders.of(this).get(CreditsViewModel::class.java)
+        creditsViewModel = ViewModelProvider(this).get(CreditsViewModel::class.java)
         creditsViewModel.init(language, id)
         creditsViewModel.observerData(this, gotDataCredits())
         initRv()
@@ -245,6 +248,7 @@ class DetailActivity : AppCompatActivity() {
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         } else {
             //expanded
+            Log.d("expanded", "boong")
         }
         return super.onPrepareOptionsMenu(collapsedMenu)
     }

@@ -1,7 +1,6 @@
 package com.qoolqas.moviedb.ui.home.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,7 @@ class NowPlayingAdapter(private val list: List<NowPlayingResultsItem>) :
 
     override fun getItemCount(): Int {
         return if(list.size > limit){
-            limit;
+            limit
         } else {
             list.size
         }

@@ -1,6 +1,5 @@
 package com.qoolqas.moviedb.ui.home
 
-import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
@@ -11,10 +10,9 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -53,7 +51,7 @@ class HomeFragment : Fragment() {
 
     }
     private fun getPopular(){
-        popularViewModel = ViewModelProviders.of(this).get(PopularViewModel::class.java)
+        popularViewModel = ViewModelProvider(this).get(PopularViewModel::class.java)
         popularViewModel.init(1)
         popularViewModel.livePopular().observe(viewLifecycleOwner, Observer { popular ->
             popularRv.apply {
@@ -68,8 +66,8 @@ class HomeFragment : Fragment() {
     }
 
 
-    fun getNowPlaying(){
-        nowPlayingViewModel = ViewModelProviders.of(this).get(NowPlayingViewModel::class.java)
+    private fun getNowPlaying(){
+        nowPlayingViewModel = ViewModelProvider(this).get(NowPlayingViewModel::class.java)
         nowPlayingViewModel.init(1)
         nowPlayingViewModel.liveNowPlaying().observe(viewLifecycleOwner, Observer { nowPlaying ->
             rvPager.apply {

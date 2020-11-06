@@ -2,18 +2,17 @@ package com.qoolqas.moviedb.ui.search
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
 import com.qoolqas.moviedb.ui.discover.DiscoverAdapter
 import com.qoolqas.moviedb.utils.EndlessOnScrollListener
-import kotlinx.android.synthetic.main.fragment_discover.*
 import kotlinx.android.synthetic.main.fragment_search_movie.*
 import java.util.*
 
@@ -43,7 +42,7 @@ class SearchMovieFragment : Fragment() {
         setHasOptionsMenu(true)
 
         initRv()
-        searchMovieViewModel = ViewModelProviders.of(this).get(SearchMovieViewModel::class.java)
+        searchMovieViewModel = ViewModelProvider(this).get(SearchMovieViewModel::class.java)
         searchMovieViewModel.init(language,query,page)
         searchMovieViewModel.observerData(this,gotData())
 

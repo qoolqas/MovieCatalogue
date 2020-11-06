@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
@@ -41,7 +41,7 @@ class DiscoverFragment : Fragment() {
 
         discoverPb.visibility = View.VISIBLE
         initRv()
-        discoverViewModel = ViewModelProviders.of(this).get(DiscoverViewModel::class.java)
+        discoverViewModel = ViewModelProvider(this).get(DiscoverViewModel::class.java)
         discoverViewModel.init(1)
         discoverViewModel.observerData(this,gotData())
 

@@ -16,6 +16,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class DiscoverAdapter(private val list: List<DiscoverResultsItem>) :
     RecyclerView.Adapter<DiscoverAdapter.ViewHolder>()  {
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)

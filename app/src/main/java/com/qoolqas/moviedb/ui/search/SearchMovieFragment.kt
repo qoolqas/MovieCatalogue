@@ -1,65 +1,65 @@
-package com.qoolqas.moviedb.ui.discover
+package com.qoolqas.moviedb.ui.search
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
+import com.qoolqas.moviedb.ui.discover.DiscoverAdapter
 import com.qoolqas.moviedb.utils.EndlessOnScrollListener
 import kotlinx.android.synthetic.main.fragment_discover.*
+import kotlinx.android.synthetic.main.fragment_search_movie.*
+import java.util.*
 
-
-class DiscoverFragment : Fragment() {
-
-    private lateinit var discoverViewModel: DiscoverViewModel
+class SearchMovieFragment : Fragment() {
+    private lateinit var searchMovieViewModel : SearchMovieViewModel
     private lateinit var discoverAdapter: DiscoverAdapter
-    private var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    private var language = Locale.getDefault().toLanguageTag()
     var page: Int = 1
+    lateinit var query : String
 
     var list = mutableListOf<DiscoverResultsItem>()
 
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_discover, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_search_movie, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        discoverRv.setHasFixedSize(true)
-        discoverRv.layoutManager = linearLayoutManager
+        query = arguments?.getString("searchData").toString()
+        Log.d("Args", query)
+        searchRv.setHasFixedSize(true)
+        searchRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         setHasOptionsMenu(true)
 
-        discoverPb.visibility = View.VISIBLE
         initRv()
-        discoverViewModel = ViewModelProviders.of(this).get(DiscoverViewModel::class.java)
-        discoverViewModel.init(1)
-        discoverViewModel.observerData(this,gotData())
+        searchMovieViewModel = ViewModelProviders.of(this).get(SearchMovieViewModel::class.java)
+        searchMovieViewModel.init(language,query,page)
+        searchMovieViewModel.observerData(this,gotData())
 
         scrollData()
     }
-
     private fun gotData(): Observer<MutableList<DiscoverResultsItem>> = Observer {
         list.clear()
         list.addAll(it)
         discoverAdapter.notifyDataSetChanged()
-        discoverPb?.visibility = View.GONE
     }
     private fun initRv() {
         discoverAdapter = DiscoverAdapter(list)
-        discoverRv?.adapter = discoverAdapter
+        searchRv.adapter = discoverAdapter
         discoverAdapter.notifyDataSetChanged()
         scrollData()?.let {
-            discoverRv?.addOnScrollListener(it)
+            searchRv.addOnScrollListener(it)
         }
     }
 
@@ -69,7 +69,7 @@ class DiscoverFragment : Fragment() {
                 if (list.isNotEmpty()) {
                     Log.d("loadMore", "lof")
                     page += 1
-                    discoverViewModel.loadPopular(page)
+                    searchMovieViewModel.loadPopular(language,query,page)
                 }
             }
 

@@ -1,4 +1,4 @@
-package com.qoolqas.moviedb.ui.home.search
+package com.qoolqas.moviedb.ui.search
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
@@ -17,12 +17,12 @@ class SearchMovieViewModel : ViewModel() {
     private var discover = MutableLiveData<MutableList<DiscoverResultsItem>>(mutableListOf())
     private val api: String = BuildConfig.API_KEY
 
-    fun init(page: Int, query : String,language : String) {
-        loadPopular(page,query, language)
+    fun init( language : String,query : String,page: Int) {
+        loadPopular(language,query,page)
     }
 
-    fun loadPopular(page: Int, query : String,language : String) {
-        Client().getApi().getSearchMovie(api, page,query,language)
+    fun loadPopular(language : String,query : String,page: Int) {
+        Client().getApi().getSearchMovie(api, language,query,page)
             .enqueue(object : Callback<DiscoverMovieResponse> {
                 override fun onFailure(call: Call<DiscoverMovieResponse>, t: Throwable) {
                     Log.d("failure discover", t.message.toString())

@@ -42,7 +42,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-@Suppress("NAME_SHADOWING")
+@Suppress("NAME_SHADOWING", "DEPRECATED_IDENTITY_EQUALS")
 class DetailActivity : AppCompatActivity() {
     private val api: String = BuildConfig.API_KEY
 
@@ -224,6 +224,9 @@ class DetailActivity : AppCompatActivity() {
         similiar.addAll(it)
         similiarAdapter.notifyDataSetChanged()
         detail_pbrv.visibility = View.GONE
+        if (it.size == 0){
+            similiar_txt.visibility = View.GONE
+        }
         Log.d("itsize", it.size.toString())
     }
     private fun gotDataCredits(): Observer<MutableList<CastItem>> = Observer {

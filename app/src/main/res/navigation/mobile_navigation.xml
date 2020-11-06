@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.qoolqas.moviedb.ui.home.search.SearchMovieFragment"
+        android:name="com.qoolqas.moviedb.ui.search.SearchMovieFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search_movie" >
         <argument

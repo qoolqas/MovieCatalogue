@@ -48,12 +48,14 @@ interface Service {
 
     ): Call<DiscoverMovieResponse>
 
-    @GET("/search/movie")
+    @GET("search/movie")
     fun getSearchMovie(
         @Query("api_key") api: String,
-        @Query("page") page: Int,
+        @Query("language") language: String,
         @Query("query") query: String,
-        @Query("language") language: String
+        @Query("page") page: Int
+
+
 
 
     ): Call<DiscoverMovieResponse>

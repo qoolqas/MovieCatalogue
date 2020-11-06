@@ -17,7 +17,7 @@ class SearchGenreViewModel : ViewModel() {
     private var discover = MutableLiveData<MutableList<DiscoverResultsItem>>(mutableListOf())
     val api: String = BuildConfig.API_KEY
 
-    fun init(page: Int,language: String,genre: String) {
+    fun init(page: Int, language: String, genre: String) {
         loadDiscover(page, language, genre)
     }
 

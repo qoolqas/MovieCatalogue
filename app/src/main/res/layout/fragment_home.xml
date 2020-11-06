@@ -42,23 +42,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rvPager" />
 
-        <TextView
-            android:id="@+id/popularMore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="@string/view_all"
-            android:padding="8dp"
-            android:textColor="@color/colorAccent"
-            android:fontFamily="@font/airbnblight"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/fix_popular"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/fix_popular"
-            app:layout_constraintTop_toTopOf="@+id/fix_popular"
-            app:layout_constraintVertical_bias="0.50" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popularRv"
             android:layout_width="match_parent"

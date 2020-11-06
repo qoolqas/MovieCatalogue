@@ -67,7 +67,6 @@ class DiscoverFragment : Fragment() {
 
     private fun scrollData(): EndlessOnScrollListener? {
         return object : EndlessOnScrollListener() {
-
             override fun onLoadMore() {
                 if (list.isNotEmpty()) {
                     Log.d("loadMore", "lof")

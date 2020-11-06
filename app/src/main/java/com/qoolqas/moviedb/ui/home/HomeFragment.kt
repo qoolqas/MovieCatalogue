@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.qoolqas.moviedb.R
@@ -98,6 +99,8 @@ class HomeFragment : Fragment() {
                 }
 
                 override fun onQueryTextSubmit(query: String): Boolean {
+                    val action = HomeFragmentDirections.actionNavHomeToNavSearch(query)
+                    Navigation.findNavController(view!!).navigate(action)
                     Log.i("onQueryTextSubmit", query)
                     return true
                 }

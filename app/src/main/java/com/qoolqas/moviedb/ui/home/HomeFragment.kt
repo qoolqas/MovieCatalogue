@@ -1,13 +1,17 @@
 package com.qoolqas.moviedb.ui.home
 
+import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -48,7 +52,7 @@ class HomeFragment : Fragment() {
 
 
     }
-    fun getPopular(){
+    private fun getPopular(){
         popularViewModel = ViewModelProviders.of(this).get(PopularViewModel::class.java)
         popularViewModel.init(1)
         popularViewModel.livePopular().observe(viewLifecycleOwner, Observer { popular ->
@@ -78,7 +82,6 @@ class HomeFragment : Fragment() {
             }
             popularPb.visibility = View.GONE
             popularDivider.visibility = View.VISIBLE
-
         })
     }
     @RequiresApi(Build.VERSION_CODES.M)
@@ -101,6 +104,13 @@ class HomeFragment : Fragment() {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     val action = HomeFragmentDirections.actionNavHomeToNavSearch(query)
                     Navigation.findNavController(view!!).navigate(action)
+
+                    val imm = context?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(
+                        searchView!!.windowToken,
+                        InputMethodManager.RESULT_UNCHANGED_SHOWN
+                    )
+
                     Log.i("onQueryTextSubmit", query)
                     return true
                 }

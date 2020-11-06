@@ -47,6 +47,16 @@ interface Service {
         @Query("with_genres") genre: String
 
     ): Call<DiscoverMovieResponse>
+
+    @GET("/search/movie")
+    fun getSearchMovie(
+        @Query("api_key") api: String,
+        @Query("page") page: Int,
+        @Query("query") query: String,
+        @Query("language") language: String
+
+
+    ): Call<DiscoverMovieResponse>
     //endregion
 
     //region Details

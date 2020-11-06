@@ -1,7 +1,10 @@
 package com.qoolqas.moviedb.model.discover
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class DiscoverResultsItem(
 
 	@field:SerializedName("overview")
@@ -45,4 +48,4 @@ data class DiscoverResultsItem(
 
 	@field:SerializedName("vote_count")
 	val voteCount: Int? = null
-)
+): Parcelable

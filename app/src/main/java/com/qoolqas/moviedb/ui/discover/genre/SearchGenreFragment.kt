@@ -50,7 +50,7 @@ class SearchGenreFragment : Fragment() {
         discoverViewModel.observerData(this,gotData())
 
         scrollData()
-    }
+}
 
     private fun gotData(): Observer<MutableList<DiscoverResultsItem>> = Observer {
         list.clear()

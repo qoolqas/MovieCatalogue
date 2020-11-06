@@ -34,8 +34,11 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.item_card_discover.view.*
 import retrofit2.Call
 import retrofit2.Response
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -120,8 +123,12 @@ class DetailActivity : AppCompatActivity() {
                         val requiredFormat =
                             "$mins Hours $secs Minute"
                         detail_runtime.text = "Duration : $requiredFormat"
-
-                        detail_title.text = respons.title
+                        val outputFormat: DateFormat = SimpleDateFormat("yyyy", Locale.US)
+                        val inputFormat: DateFormat =
+                            SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                        val date: Date = inputFormat.parse(respons.releaseDate)
+                        val outputText: String = outputFormat.format(date)
+                        detail_title.text = respons.title + " ($outputText)"
 
                         detail_description.text = respons.overview
                         detail_rating_text.text = respons.voteAverage.toString()
@@ -172,13 +179,6 @@ class DetailActivity : AppCompatActivity() {
                             })
 
                         detail_rating_star.rating = respons?.voteAverage!!.toFloat() / 2
-                        val i = 0
-
-//                        for (item in respons.genres?.get(i)?.name!!) {
-//                            detail_genre.text = detail_genre.text.toString() + item + " "
-//                            Log.d("Text", item.toString())
-//
-//                        }
                         for (i in respons.genres?.indices!!) {
                             println(respons.genres[i])
                             detail_genre.text = detail_genre.text.toString() + respons.genres[i].name + ", "

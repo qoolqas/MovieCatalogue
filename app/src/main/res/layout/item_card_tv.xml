@@ -29,7 +29,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/similiarPoster"
+                android:id="@+id/tv_popular_backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="fill"
@@ -43,7 +43,7 @@
                 tools:src="@drawable/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/tv_backdrop_card"
+                android:id="@+id/tv_popular_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

@@ -6,6 +6,7 @@ import com.qoolqas.moviedb.model.discover.DiscoverMovieResponse
 import com.qoolqas.moviedb.model.nowplaying.NowPlayingResponse
 import com.qoolqas.moviedb.model.popular.PopularMovieResponse
 import com.qoolqas.moviedb.model.similiar.SimiliarResponse
+import com.qoolqas.moviedb.model.tv.TvPopularResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -27,6 +28,13 @@ interface Service {
         @Query("api_key") api: String,
         @Query("page") page: Int
     ): Call<PopularMovieResponse>
+
+    @GET("tv/popular")
+    fun getTvPopular(
+        @Query("api_key") api: String,
+        @Query("page") page: Int,
+        @Query("language") language: String
+    ): Call<TvPopularResponse>
 
 
     //endregion
@@ -61,7 +69,8 @@ interface Service {
     @GET("movie/{movie_id}")
     fun getDetails(
         @Path("movie_id") id: Int,
-        @Query("api_key") api: String
+        @Query("api_key") api: String,
+        @Query("language") language: String
 
     ): Call<DetailsMovieResponse>
     //endregion

@@ -14,7 +14,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.palette.graphics.Palette
 import androidx.palette.graphics.Palette.PaletteAsyncListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,7 +34,6 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.item_card_discover.view.*
 import retrofit2.Call
 import retrofit2.Response
 import java.text.DateFormat
@@ -100,7 +98,7 @@ class DetailActivity : AppCompatActivity() {
         })
 
 
-        Client().getApi().getDetails(id, api)
+        Client().getApi().getDetails(id, api,language)
             .enqueue(object : retrofit2.Callback<DetailsMovieResponse> {
                 override fun onFailure(call: Call<DetailsMovieResponse>, t: Throwable) {
                     Log.d("failure detail", t.message.toString())

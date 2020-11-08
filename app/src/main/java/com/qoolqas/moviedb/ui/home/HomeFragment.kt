@@ -19,19 +19,25 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.ui.home.adapter.NowPlayingAdapter
 import com.qoolqas.moviedb.ui.home.adapter.PopularAdapter
+import com.qoolqas.moviedb.ui.home.adapter.TvPopularAdapter
 import com.qoolqas.moviedb.ui.home.viewmodel.NowPlayingViewModel
 import com.qoolqas.moviedb.ui.home.viewmodel.PopularViewModel
+import com.qoolqas.moviedb.ui.home.viewmodel.TvShowViewModel
 import com.qoolqas.moviedb.utils.LinePagerIndicatorDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.util.*
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var popularViewModel: PopularViewModel
     private lateinit var nowPlayingViewModel: NowPlayingViewModel
+    private lateinit var tvShowViewModel: TvShowViewModel
 
     private var searchView: SearchView? = null
     private var queryTextListener: SearchView.OnQueryTextListener? = null
+    private var language = Locale.getDefault().toLanguageTag()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,6 +53,7 @@ class HomeFragment : Fragment() {
         popularDivider.visibility = View.GONE
         getPopular()
         getNowPlaying()
+        getTv()
 
 
     }
@@ -62,6 +69,17 @@ class HomeFragment : Fragment() {
             popularPb.visibility = View.GONE
             popularDivider.visibility = View.VISIBLE
 
+        })
+    }
+    private fun getTv(){
+        tvShowViewModel = ViewModelProvider(this).get(TvShowViewModel::class.java)
+        tvShowViewModel.init(1,language)
+        tvShowViewModel.livePopular().observe(viewLifecycleOwner, Observer { popular ->
+            tv_popular_rv.apply {
+                tv_popular_rv.setHasFixedSize(true)
+                tv_popular_rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = TvPopularAdapter(popular)
+            }
         })
     }
 

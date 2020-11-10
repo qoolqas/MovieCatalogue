@@ -6,13 +6,14 @@ import kotlinx.android.parcel.Parcelize
 
 
 data class GenreStaticResponse(
-    val data: List<GenreStaticData>? = null
+    val data: List<StaticData>? = null
 )
 
 @Parcelize
-data class GenreStaticData(
+data class StaticData(
     val image: Int? = null,
     val name: String? = null,
-    val id: Int? = null
+    val id: Int? = null,
+    val kode: String? = null
 ): Parcelable
 

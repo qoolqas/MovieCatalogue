@@ -64,7 +64,7 @@
 
         <argument
             android:name="genre_id"
-            app:argType="com.qoolqas.moviedb.model.genrestatic.GenreStaticData"
+            app:argType="com.qoolqas.moviedb.model.genrestatic.StaticData"
             app:nullable="true" />
     </fragment>
     <fragment

@@ -14,16 +14,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.qoolqas.moviedb.R
+import com.qoolqas.moviedb.model.genrestatic.StaticData
+import com.qoolqas.moviedb.ui.discover.genre.GenreAdapter
 import com.qoolqas.moviedb.ui.home.adapter.NowPlayingAdapter
 import com.qoolqas.moviedb.ui.home.adapter.PopularAdapter
 import com.qoolqas.moviedb.ui.home.adapter.TvPopularAdapter
+import com.qoolqas.moviedb.ui.home.homenav.HomeNavAdapter
 import com.qoolqas.moviedb.ui.home.viewmodel.NowPlayingViewModel
 import com.qoolqas.moviedb.ui.home.viewmodel.PopularViewModel
 import com.qoolqas.moviedb.ui.home.viewmodel.TvShowViewModel
 import com.qoolqas.moviedb.utils.LinePagerIndicatorDecoration
+import kotlinx.android.synthetic.main.fragment_genre.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 
@@ -38,6 +43,16 @@ class HomeFragment : Fragment() {
     private var queryTextListener: SearchView.OnQueryTextListener? = null
     private var language = Locale.getDefault().toLanguageTag()
 
+    private val genreData = listOf(
+        StaticData(R.drawable.exposter, "Discover",28),
+        StaticData(R.drawable.exbackdrop, "Popular",12),
+        StaticData(R.drawable.exposter, "Tv Show",16),
+        StaticData(R.drawable.exbackdrop, "Series",35),
+        StaticData(R.drawable.exposter, "Genre",80),
+        StaticData(R.drawable.exbackdrop, "Country",99),
+        StaticData(R.drawable.exposter, "Favorite",18),
+        StaticData(R.drawable.exbackdrop, "Advanced Search",10751)
+    )
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,11 +66,18 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
         popularPb.visibility = View.VISIBLE
         popularDivider.visibility = View.GONE
+        homeNav()
         getPopular()
         getNowPlaying()
         getTv()
 
 
+    }
+    private fun homeNav(){
+        homenav_rv.apply {
+            homenav_rv.layoutManager = GridLayoutManager(context, 4)
+            adapter = HomeNavAdapter(genreData)
+        }
     }
     private fun getPopular(){
         popularViewModel = ViewModelProvider(this).get(PopularViewModel::class.java)

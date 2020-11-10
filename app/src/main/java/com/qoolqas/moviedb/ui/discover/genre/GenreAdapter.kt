@@ -8,10 +8,10 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
-import com.qoolqas.moviedb.model.genrestatic.GenreStaticData
+import com.qoolqas.moviedb.model.genrestatic.StaticData
 import kotlinx.android.synthetic.main.item_card_genre.view.*
 
-class GenreAdapter(private val list: List<GenreStaticData>) :
+class GenreAdapter(private val list: List<StaticData>) :
     RecyclerView.Adapter<GenreAdapter.ViewHolder>()  {
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 

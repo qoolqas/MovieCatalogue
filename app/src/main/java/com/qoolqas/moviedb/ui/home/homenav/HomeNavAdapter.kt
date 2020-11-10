@@ -1,6 +1,5 @@
 package com.qoolqas.moviedb.ui.home.homenav
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
-import com.qoolqas.moviedb.model.nowplaying.NowPlayingResultsItem
-import com.qoolqas.moviedb.ui.detail.DetailActivity
-import com.qoolqas.moviedb.ui.detail.DetailActivity.Companion.EXTRA_ID
-import kotlinx.android.synthetic.main.item_pager_main.view.*
+import com.qoolqas.moviedb.model.genrestatic.StaticData
+import kotlinx.android.synthetic.main.item_homenav.view.*
 
-class HomeNavAdapter(private val list: List<NowPlayingResultsItem>) :
+class HomeNavAdapter(private val list: List<StaticData>) :
     RecyclerView.Adapter<HomeNavAdapter.ViewHolder>() {
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -27,11 +24,11 @@ class HomeNavAdapter(private val list: List<NowPlayingResultsItem>) :
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.pagerTitle.text = list[position].title
+        holder.view.homenav_name.text = list[position].name
         Glide.with(holder.view)
-            .load("https://image.tmdb.org/t/p/w500" + list[position].backdropPath)
+            .load(list[position].image)
             .placeholder(R.color.gray)
-            .into(holder.view.pagerImage)
+            .into(holder.view.homenav_image)
 
         holder.view.setOnClickListener {
             when(holder.adapterPosition){

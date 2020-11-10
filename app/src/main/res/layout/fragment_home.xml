@@ -24,12 +24,26 @@
             tools:ignore="RtlSymmetry"
             tools:listitem="@layout/item_pager_main" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homenav_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvPager"
+            tools:listitem="@layout/item_homenav">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
         <TextView
             android:id="@+id/fix_popular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/airbnbmedium"
             android:padding="8dp"
@@ -40,7 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvPager" />
+            app:layout_constraintTop_toBottomOf="@+id/homenav_rv" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popularRv"

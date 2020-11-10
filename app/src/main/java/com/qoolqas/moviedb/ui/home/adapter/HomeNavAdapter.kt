@@ -1,9 +1,10 @@
-package com.qoolqas.moviedb.ui.home.homenav
+package com.qoolqas.moviedb.ui.home.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
@@ -32,10 +33,14 @@ class HomeNavAdapter(private val list: List<StaticData>) :
 
         holder.view.setOnClickListener {
             when(holder.adapterPosition){
-                0 -> Log.d("when0", "when0")
+                0 -> Navigation.createNavigateOnClickListener(R.id.action_nav_home_to_nav_discover, null)
                 1 -> Log.d("when1", "when1")
                 2 -> Log.d("when2", "when2")
                 3 -> Log.d("when3", "when3")
+                4 -> Log.d("when3", "when3")
+                5 -> Log.d("when3", "when3")
+                6 -> Log.d("when3", "when3")
+                7 -> Log.d("when3", "when3")
             }
 //            val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
 //            intentDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)

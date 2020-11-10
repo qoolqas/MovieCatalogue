@@ -19,16 +19,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.genrestatic.StaticData
-import com.qoolqas.moviedb.ui.discover.genre.GenreAdapter
 import com.qoolqas.moviedb.ui.home.adapter.NowPlayingAdapter
 import com.qoolqas.moviedb.ui.home.adapter.PopularAdapter
 import com.qoolqas.moviedb.ui.home.adapter.TvPopularAdapter
-import com.qoolqas.moviedb.ui.home.homenav.HomeNavAdapter
+import com.qoolqas.moviedb.ui.home.adapter.HomeNavAdapter
 import com.qoolqas.moviedb.ui.home.viewmodel.NowPlayingViewModel
 import com.qoolqas.moviedb.ui.home.viewmodel.PopularViewModel
 import com.qoolqas.moviedb.ui.home.viewmodel.TvShowViewModel
 import com.qoolqas.moviedb.utils.LinePagerIndicatorDecoration
-import kotlinx.android.synthetic.main.fragment_genre.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 
@@ -76,7 +74,8 @@ class HomeFragment : Fragment() {
     private fun homeNav(){
         homenav_rv.apply {
             homenav_rv.layoutManager = GridLayoutManager(context, 4)
-            adapter = HomeNavAdapter(genreData)
+            adapter =
+                HomeNavAdapter(genreData)
         }
     }
     private fun getPopular(){

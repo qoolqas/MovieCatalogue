@@ -43,6 +43,7 @@ class NowPlayingAdapter(private val list: List<NowPlayingResultsItem>) :
             val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
             intentDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             intentDetail.putExtra(EXTRA_ID, list[position].id)
+            intentDetail.putExtra(DetailActivity.EXTRA_CODE, "movie")
             holder.view.context.startActivity(intentDetail)
         }
     }

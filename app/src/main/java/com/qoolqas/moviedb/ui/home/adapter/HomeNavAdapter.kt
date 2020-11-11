@@ -37,17 +37,11 @@ class HomeNavAdapter(private val list: List<StaticData>) :
                 1 -> Log.d("when1", "when1")
                 2 -> Log.d("when2", "when2")
                 3 -> Log.d("when3", "when3")
-                4 -> Log.d("when3", "when3")
+                4 -> Navigation.createNavigateOnClickListener(R.id.action_nav_home_to_nav_genre, null)
                 5 -> Log.d("when3", "when3")
                 6 -> Log.d("when3", "when3")
                 7 -> Log.d("when3", "when3")
             }
-//            val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
-//            intentDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-//            intentDetail.putExtra(EXTRA_ID, list[position].id)
-//            holder.view.context.startActivity(intentDetail)
         }
     }
-
-
 }

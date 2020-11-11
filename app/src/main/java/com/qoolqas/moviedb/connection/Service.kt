@@ -7,6 +7,7 @@ import com.qoolqas.moviedb.model.nowplaying.NowPlayingResponse
 import com.qoolqas.moviedb.model.popular.PopularMovieResponse
 import com.qoolqas.moviedb.model.similiar.SimiliarResponse
 import com.qoolqas.moviedb.model.tv.TvPopularResponse
+import com.qoolqas.moviedb.model.tvdetails.TvDetailResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -73,6 +74,13 @@ interface Service {
         @Query("language") language: String
 
     ): Call<DetailsMovieResponse>
+    @GET("tv/{tv_id}")
+    fun getDetailsTv(
+        @Path("tv_id") id: Int,
+        @Query("api_key") api: String,
+        @Query("language") language: String
+
+    ): Call<TvDetailResponse>
     //endregion
 
     //region Similiar

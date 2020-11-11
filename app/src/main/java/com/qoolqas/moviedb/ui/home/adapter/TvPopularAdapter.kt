@@ -11,6 +11,7 @@ import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.popular.PopularResultsItem
 import com.qoolqas.moviedb.model.tv.TvPopularItem
 import com.qoolqas.moviedb.ui.detail.DetailActivity
+import com.qoolqas.moviedb.ui.detail.DetailActivity.Companion.EXTRA_CODE
 import com.qoolqas.moviedb.ui.detail.DetailActivity.Companion.EXTRA_ID
 import kotlinx.android.synthetic.main.item_card_popular.view.*
 import kotlinx.android.synthetic.main.item_card_tv.view.*
@@ -39,6 +40,7 @@ class TvPopularAdapter(private val list: List<TvPopularItem>) :
             val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
             intentDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             intentDetail.putExtra(EXTRA_ID, list[position].id)
+            intentDetail.putExtra(EXTRA_CODE, "tv")
             holder.view.context.startActivity(intentDetail)
             Log.d("id", list[position].id.toString())
         }

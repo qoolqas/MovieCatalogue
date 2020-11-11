@@ -34,6 +34,7 @@ class SimiliarAdapter(private val list: List<SimiliarResultsItem>) :
         holder.view.setOnClickListener {
             val intentSimilar = Intent(holder.view.context, DetailActivity::class.java)
             intentSimilar.putExtra(DetailActivity.EXTRA_ID, list[position].id)
+            intentSimilar.putExtra(DetailActivity.EXTRA_CODE, "movie")
             holder.view.context.startActivity(intentSimilar)
 
         }

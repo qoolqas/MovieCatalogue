@@ -250,7 +250,8 @@ class DetailActivity : AppCompatActivity() {
                         val date: Date = inputFormat.parse(respons.firstAirDate)
                         val dateLast: Date = inputFormat.parse(respons.lastAirDate)
                         val outputText: String = outputFormat.format(date)
-                        detail_title.text = respons.name + " ($outputText)"
+                        val outputText2: String = outputFormat.format(dateLast)
+                        detail_title.text = respons.name + " ($outputText - $outputText2)"
 
                         detail_description.text = respons.overview
                         detail_rating_text.text = respons.voteAverage.toString()

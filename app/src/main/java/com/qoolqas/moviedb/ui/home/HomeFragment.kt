@@ -42,14 +42,14 @@ class HomeFragment : Fragment() {
     private var language = Locale.getDefault().toLanguageTag()
 
     private val genreData = listOf(
-        StaticData(R.drawable.exposter, "Discover",28),
-        StaticData(R.drawable.exbackdrop, "Popular",12),
-        StaticData(R.drawable.exposter, "Tv Show",16),
-        StaticData(R.drawable.exbackdrop, "Series",35),
+        StaticData(R.drawable.compass, "Discover",28),
+        StaticData(R.drawable.popular, "Popular",12),
+        StaticData(R.drawable.cinema, "Tv Show",16),
+        StaticData(R.drawable.filmreel, "Series",35),
         StaticData(R.drawable.exposter, "Genre",80),
-        StaticData(R.drawable.exbackdrop, "Country",99),
-        StaticData(R.drawable.exposter, "Favorite",18),
-        StaticData(R.drawable.exbackdrop, "Advanced Search",10751)
+        StaticData(R.drawable.flag, "Country",99),
+        StaticData(R.drawable.favorite, "Favorite",18),
+        StaticData(R.drawable.search, "Advanced Search",10751)
     )
     override fun onCreateView(
         inflater: LayoutInflater,

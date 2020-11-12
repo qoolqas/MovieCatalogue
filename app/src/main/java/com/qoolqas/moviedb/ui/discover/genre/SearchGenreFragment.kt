@@ -2,17 +2,16 @@ package com.qoolqas.moviedb.ui.discover.genre
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
 import com.qoolqas.moviedb.ui.discover.DiscoverAdapter
-import com.qoolqas.moviedb.ui.discover.DiscoverViewModel
 import com.qoolqas.moviedb.utils.EndlessOnScrollListener
 import kotlinx.android.synthetic.main.fragment_discover.*
 import java.util.*
@@ -45,7 +44,7 @@ class SearchGenreFragment : Fragment() {
         discoverRv.layoutManager = linearLayoutManager
         setHasOptionsMenu(true)
         initRv()
-        discoverViewModel = ViewModelProviders.of(this).get(SearchGenreViewModel::class.java)
+        discoverViewModel = ViewModelProvider(this).get(SearchGenreViewModel::class.java)
         discoverViewModel.init(1,language,genreids)
         discoverViewModel.observerData(this,gotData())
 

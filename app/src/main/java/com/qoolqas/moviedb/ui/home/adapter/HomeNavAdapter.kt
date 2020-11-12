@@ -30,6 +30,16 @@ class HomeNavAdapter(private val list: List<StaticData>) :
             .load(list[position].image)
             .placeholder(R.color.gray)
             .into(holder.view.homenav_image)
+//        when(list[position].id){
+//            213   -> Navigation.createNavigateOnClickListener(R.id.action_nav_home_to_nav_discover, null)
+//            1 -> Log.d("when1", "when1")
+//            2 -> Log.d("when2", "when2")
+//            3 -> Log.d("when3", "when3")
+//            4 -> Navigation.createNavigateOnClickListener(R.id.action_nav_home_to_nav_genre, null)
+//            5 -> Log.d("when3", "when3")
+//            6 -> Log.d("when3", "when3")
+//            7 -> Log.d("when3", "when3")
+//        }
 
         holder.view.setOnClickListener {
             when(holder.adapterPosition){

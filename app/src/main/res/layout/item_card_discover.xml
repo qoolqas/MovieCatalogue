@@ -45,7 +45,7 @@
                 tools:text="Captain America" />
 
             <TextView
-                android:id="@+id/discoverGenre"
+                android:id="@+id/discoverDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="150dp"
@@ -53,13 +53,13 @@
                 android:layout_marginEnd="8dp"
                 android:maxLines="1"
                 android:textColor="@color/colorAccent"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/discoverTitle"
-                tools:text="Action, Comedy, Fantasy" />
+                tools:text="2020" />
 
             <RatingBar
                 android:id="@+id/discoverRatingStar"
@@ -75,7 +75,7 @@
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/discoverGenre" />
+                card_view:layout_constraintTop_toBottomOf="@+id/discoverDate" />
 
             <TextView
                 android:id="@+id/discoverOverview"

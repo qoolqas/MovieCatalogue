@@ -1,7 +1,6 @@
 package com.qoolqas.moviedb.ui.home.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,7 @@ class NowPlayingAdapter(private val list: List<NowPlayingResultsItem>) :
 
     override fun getItemCount(): Int {
         return if(list.size > limit){
-            limit;
+            limit
         } else {
             list.size
         }
@@ -37,13 +36,14 @@ class NowPlayingAdapter(private val list: List<NowPlayingResultsItem>) :
         holder.view.pagerTitle.text = list[position].title
         Glide.with(holder.view)
             .load("https://image.tmdb.org/t/p/w500" + list[position].backdropPath)
-            .placeholder(R.drawable.exbackdrop)
+            .placeholder(R.color.gray)
             .into(holder.view.pagerImage)
 
         holder.view.setOnClickListener {
             val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
             intentDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-            intentDetail.putExtra(EXTRA_ID, list[position].id)
+            intentDetail.putExtra(EXTRA_ID, list[position].id) 
+            intentDetail.putExtra(DetailActivity.EXTRA_CODE, "movie")
             holder.view.context.startActivity(intentDetail)
         }
     }

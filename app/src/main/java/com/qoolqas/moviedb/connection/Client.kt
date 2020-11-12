@@ -7,8 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Client {
 //    val api: String = BuildConfig.API_KEY
-    val BASE_URL: String = "https://api.themoviedb.org/3/"
-    fun getClient(): Retrofit {
+    private val BASE_URL: String = "https://api.themoviedb.org/3/"
+    private fun getClient(): Retrofit {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         val client : OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()

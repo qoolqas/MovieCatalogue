@@ -9,13 +9,46 @@
         android:id="@+id/nav_home"
         android:name="com.qoolqas.moviedb.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_search"
+            app:destination="@id/nav_search"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_home_to_nav_favorite"
+            app:destination="@id/nav_favorite"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_home_to_nav_discover"
+            app:destination="@id/nav_discover"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_nav_home_to_nav_genre"
+            app:destination="@id/nav_genre"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_discover"
         android:name="com.qoolqas.moviedb.ui.discover.DiscoverFragment"
         android:label="@string/menu_discover"
-        tools:layout="@layout/fragment_discover" />
+        tools:layout="@layout/fragment_discover" >
+        <action
+            android:id="@+id/action_nav_discover_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_favorite"
@@ -26,5 +59,36 @@
         android:id="@+id/nav_genre"
         android:name="com.qoolqas.moviedb.ui.discover.genre.GenreFragment"
         android:label="@string/menu_genre"
-        tools:layout="@layout/fragment_genre" />
+        tools:layout="@layout/fragment_genre" >
+        <action
+            android:id="@+id/action_nav_genre_to_nav_search_genre"
+            app:destination="@id/nav_search_genre"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" >
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_search_genre"
+        android:name="com.qoolqas.moviedb.ui.discover.genre.SearchGenreFragment"
+        android:label="@string/menu_genre"
+        tools:layout="@layout/fragment_search_genre" >
+
+
+        <argument
+            android:name="genre_id"
+            app:argType="com.qoolqas.moviedb.model.genrestatic.StaticData"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.qoolqas.moviedb.ui.search.SearchMovieFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search_movie" >
+        <argument
+            android:name="searchData"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

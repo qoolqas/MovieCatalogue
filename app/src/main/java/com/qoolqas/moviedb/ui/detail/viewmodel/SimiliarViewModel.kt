@@ -21,7 +21,7 @@ class SimiliarViewModel : ViewModel() {
         loadSimiliar(page, id)
     }
 
-    fun loadSimiliar(page: Int, id: Int) {
+    private fun loadSimiliar(page: Int, id: Int) {
         Client().getApi().getSimiliar(id, api, page)
             .enqueue(object : Callback<SimiliarResponse> {
                 override fun onFailure(call: Call<SimiliarResponse>, t: Throwable) {

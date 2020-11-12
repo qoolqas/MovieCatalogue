@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.palette.graphics.Palette
 import androidx.palette.graphics.Palette.PaletteAsyncListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +26,7 @@ import com.qoolqas.moviedb.connection.Client
 import com.qoolqas.moviedb.model.credits.CastItem
 import com.qoolqas.moviedb.model.details.DetailsMovieResponse
 import com.qoolqas.moviedb.model.similiar.SimiliarResultsItem
+import com.qoolqas.moviedb.model.tvdetails.TvDetailResponse
 import com.qoolqas.moviedb.ui.detail.adapter.CreditAdapter
 import com.qoolqas.moviedb.ui.detail.adapter.SimiliarAdapter
 import com.qoolqas.moviedb.ui.detail.viewmodel.CreditsViewModel
@@ -36,10 +37,15 @@ import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.activity_detail.*
 import retrofit2.Call
 import retrofit2.Response
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 
-@Suppress("NAME_SHADOWING")
+@Suppress(
+    "NAME_SHADOWING", "DEPRECATED_IDENTITY_EQUALS",
+    "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS"
+)
 class DetailActivity : AppCompatActivity() {
     private val api: String = BuildConfig.API_KEY
 
@@ -51,39 +57,43 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var similiarAdapter: SimiliarAdapter
     private lateinit var creditAdapter: CreditAdapter
-    private var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-    private var linearLayoutManagerCast: LinearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    private var linearLayoutManager: LinearLayoutManager =
+        LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    private var linearLayoutManagerCast: LinearLayoutManager =
+        LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     private var appBarExpanded = true
     private var collapsedMenu: Menu? = null
     private var language = Locale.getDefault().toLanguageTag()
-
+    var id: Int = 0
+    private var code: String = ""
 
 
     companion object {
         const val EXTRA_ID = "Extra"
+        const val EXTRA_CODE = "Extra_Code"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        val id = intent.getIntExtra(EXTRA_ID, 0)
-
+        id = intent.getIntExtra(EXTRA_ID, 0)
+        code = intent.getStringExtra(EXTRA_CODE)
         val toolbar = findViewById<Toolbar>(R.id.toolbar1)
         setSupportActionBar(toolbar)
 
-        val collapsingToolbarLayout =
-            findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar)
+//        val collapsingToolbarLayout =
+//            findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar)
 
-        collapsingToolbarLayout.setCollapsedTitleTextColor(
+        collapsing_toolbar.setCollapsedTitleTextColor(
             ContextCompat.getColor(this, R.color.colorAccent)
         )
-        collapsingToolbarLayout.setExpandedTitleColor(
+        collapsing_toolbar.setExpandedTitleColor(
             ContextCompat.getColor(this, R.color.transparent)
         )
         detail_pbrv.visibility = View.VISIBLE
 
-        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset -> //  Vertical offset == 0 indicates appBar is fully  expanded.
+        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset -> //  Vertical offset == 0 indicates appBar is fully  expanded.
             if (kotlin.math.abs(verticalOffset) > 200) {
                 appBarExpanded = false
                 invalidateOptionsMenu()
@@ -92,9 +102,17 @@ class DetailActivity : AppCompatActivity() {
                 invalidateOptionsMenu()
             }
         })
+        if (code == "tv"){
+            getDetailTv()
+        }else{
+            getDetailMovie()
+        }
+        initRv()
 
 
-        Client().getApi().getDetails(id, api)
+    }
+    private fun getDetailMovie() {
+        Client().getApi().getDetails(id, api, language)
             .enqueue(object : retrofit2.Callback<DetailsMovieResponse> {
                 override fun onFailure(call: Call<DetailsMovieResponse>, t: Throwable) {
                     Log.d("failure detail", t.message.toString())
@@ -109,7 +127,7 @@ class DetailActivity : AppCompatActivity() {
                         val respons: DetailsMovieResponse? = response.body()
 
                         val timeSec: Long = respons?.runtime!!.toLong() // Json output
-                        Log.d("asd123" , timeSec.toString())
+                        Log.d("asd123", timeSec.toString())
 
                         val hours = timeSec.toInt() / 3600
                         var temp = timeSec.toInt() - hours * 3600
@@ -120,20 +138,21 @@ class DetailActivity : AppCompatActivity() {
                         val requiredFormat =
                             "$mins Hours $secs Minute"
                         detail_runtime.text = "Duration : $requiredFormat"
-
-                        detail_title.text = respons.title
+                        val outputFormat: DateFormat = SimpleDateFormat("yyyy", Locale.US)
+                        val inputFormat: DateFormat =
+                            SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                        val date: Date = inputFormat.parse(respons.releaseDate)
+                        Log.d("date123", respons.releaseDate)
+                        val outputText: String = outputFormat.format(date)
+                        detail_title.text = respons.title + " ($outputText)"
 
                         detail_description.text = respons.overview
                         detail_rating_text.text = respons.voteAverage.toString()
 
-                        collapsingToolbarLayout.title = respons.title
+                        collapsing_toolbar.title = respons.title
                         Glide.with(this@DetailActivity)
                             .load("https://image.tmdb.org/t/p/w185" + respons.posterPath)
                             .into(detail_poster)
-//                        Glide.with(this@DetailActivity)
-//                            .load("https://image.tmdb.org/t/p/original" + respons?.backdropPath)
-//                            .into(detail_backdrop)
-
 
                         Picasso.with(this@DetailActivity)
                             .load("https://image.tmdb.org/t/p/w500" + respons.backdropPath)
@@ -158,30 +177,26 @@ class DetailActivity : AppCompatActivity() {
                                                 return@PaletteAsyncListener
                                             }
 
-                                            val mutedColor = palette.getVibrantColor(R.attr.colorPrimary)
-                                            collapsingToolbarLayout.setContentScrimColor(mutedColor)
+                                            val mutedColor =
+                                                palette.getVibrantColor(R.attr.colorPrimary)
+                                            collapsing_toolbar.setContentScrimColor(mutedColor)
                                         })
                                 }
 
                                 override fun onBitmapFailed(errorDrawable: Drawable?) {
 
                                 }
+
                                 override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
 
                                 }
                             })
 
-                        detail_rating_star.rating = respons?.voteAverage!!.toFloat() / 2
-                        val i = 0
-
-//                        for (item in respons.genres?.get(i)?.name!!) {
-//                            detail_genre.text = detail_genre.text.toString() + item + " "
-//                            Log.d("Text", item.toString())
-//
-//                        }
+                        detail_rating_star.rating = respons.voteAverage!!.toFloat() / 2
                         for (i in respons.genres?.indices!!) {
                             println(respons.genres[i])
-                            detail_genre.text = detail_genre.text.toString() + respons.genres[i].name + ", "
+                            detail_genre.text =
+                                detail_genre.text.toString() + respons.genres[i].name + ", "
                             Log.d("Text", respons.genres[i].name.toString())
                         }
 
@@ -192,23 +207,126 @@ class DetailActivity : AppCompatActivity() {
                 }
 
             })
-
         detail_similiarRv.setHasFixedSize(true)
         detail_similiarRv.layoutManager = linearLayoutManager
 
-        similiarViewModel = ViewModelProviders.of(this).get(SimiliarViewModel::class.java)
+        similiarViewModel = ViewModelProvider(this).get(SimiliarViewModel::class.java)
         similiarViewModel.init(1, id)
         similiarViewModel.observerData(this, gotData())
 
         detail_cast_rv.setHasFixedSize(true)
         detail_cast_rv.layoutManager = linearLayoutManagerCast
 
-        creditsViewModel = ViewModelProviders.of(this).get(CreditsViewModel::class.java)
+        creditsViewModel = ViewModelProvider(this).get(CreditsViewModel::class.java)
         creditsViewModel.init(language, id)
         creditsViewModel.observerData(this, gotDataCredits())
-        initRv()
+    }
+    private fun getDetailTv(){
+        Client().getApi().getDetailsTv(id, api, language)
+            .enqueue(object : retrofit2.Callback<TvDetailResponse> {
+                override fun onFailure(call: Call<TvDetailResponse>, t: Throwable) {
+                    Log.d("failure detail", t.message.toString())
+                }
 
+                @SuppressLint("SetTextI18n")
+                override fun onResponse(
+                    call: Call<TvDetailResponse>,
+                    response: Response<TvDetailResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val respons: TvDetailResponse? = response.body()
+                        val runtime = respons!!.episodeRunTime
+                        detail_runtime.text = "Duration : $runtime Minute"
 
+//                        val outputFormat: DateFormat = SimpleDateFormat("yyyy", Locale.US)
+//                        val inputFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+//                        val date: Date = inputFormat.parse(respons.firstAirDate)
+//                        val outputText: String = outputFormat.format(date)
+//                        detail_title.text = respons.title + " ($outputText)"
+
+                        val outputFormat: DateFormat = SimpleDateFormat("yyyy", Locale.US)
+                        val inputFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                        Log.d("date12", respons.firstAirDate + respons.lastAirDate)
+                        val date: Date = inputFormat.parse(respons.firstAirDate)
+                        val dateLast: Date = inputFormat.parse(respons.lastAirDate)
+                        val outputText: String = outputFormat.format(date)
+                        val outputText2: String = outputFormat.format(dateLast)
+                        detail_title.text = respons.name + " ($outputText - $outputText2)"
+
+                        detail_description.text = respons.overview
+                        detail_rating_text.text = respons.voteAverage.toString()
+
+                        collapsing_toolbar.title = respons.name
+                        Glide.with(this@DetailActivity)
+                            .load("https://image.tmdb.org/t/p/w185" + respons.posterPath)
+                            .into(detail_poster)
+
+                        Picasso.with(this@DetailActivity)
+                            .load("https://image.tmdb.org/t/p/w500" + respons.backdropPath)
+                            .into(object : Target {
+                                override fun onBitmapLoaded(
+                                    bitmap: Bitmap?,
+                                    from: LoadedFrom?
+                                ) {
+                                    if (BuildConfig.DEBUG && detail_backdrop == null) {
+                                        error("Assertion failed")
+                                    }
+                                    detail_backdrop.setImageBitmap(bitmap)
+                                    Palette.from(bitmap!!)
+                                        .generate(PaletteAsyncListener { palette ->
+                                            val textSwatch = palette!!.vibrantSwatch
+                                            if (textSwatch == null) {
+                                                Toast.makeText(
+                                                    this@DetailActivity,
+                                                    "Null swatch :(",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                                return@PaletteAsyncListener
+                                            }
+
+                                            val mutedColor =
+                                                palette.getVibrantColor(R.attr.colorPrimary)
+                                            collapsing_toolbar.setContentScrimColor(mutedColor)
+                                        })
+                                }
+
+                                override fun onBitmapFailed(errorDrawable: Drawable?) {
+
+                                }
+
+                                override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+
+                                }
+                            })
+
+                        detail_rating_star.rating = respons.voteAverage!!.toFloat() / 2
+                        for (i in respons.genres?.indices!!) {
+                            println(respons.genres[i])
+                            detail_genre.text =
+                                detail_genre.text.toString() + respons.genres[i].name + ", "
+                            Log.d("Text", respons.genres[i].name.toString())
+                        }
+
+                    } else {
+                        Log.d("else", "Failure")
+                    }
+
+                }
+
+            })
+        detail_similiarRv.setHasFixedSize(true)
+        detail_similiarRv.layoutManager = linearLayoutManager
+
+        similiarViewModel = ViewModelProvider(this).get(SimiliarViewModel::class.java)
+        similiarViewModel.init(1, id)
+        similiarViewModel.observerData(this, gotData())
+
+        detail_cast_rv.setHasFixedSize(true)
+        detail_cast_rv.layoutManager = linearLayoutManagerCast
+
+        creditsViewModel = ViewModelProvider(this).get(CreditsViewModel::class.java)
+        creditsViewModel.init(language, id)
+        creditsViewModel.observerData(this, gotDataCredits())
     }
 
     private fun initRv() {
@@ -224,8 +342,12 @@ class DetailActivity : AppCompatActivity() {
         similiar.addAll(it)
         similiarAdapter.notifyDataSetChanged()
         detail_pbrv.visibility = View.GONE
+        if (it.size == 0) {
+            similiar_txt.visibility = View.GONE
+        }
         Log.d("itsize", it.size.toString())
     }
+
     private fun gotDataCredits(): Observer<MutableList<CastItem>> = Observer {
         credit.clear()
         credit.addAll(it)
@@ -245,6 +367,7 @@ class DetailActivity : AppCompatActivity() {
         }
         return super.onPrepareOptionsMenu(collapsedMenu)
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         collapsedMenu = menu

@@ -1,20 +1,17 @@
 package com.qoolqas.moviedb.ui.discover.genre
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.qoolqas.moviedb.R
-import com.qoolqas.moviedb.model.discover.DiscoverResultsItem
-import com.qoolqas.moviedb.model.genrestatic.GenreStaticData
-import com.qoolqas.moviedb.ui.detail.DetailActivity
-import kotlinx.android.synthetic.main.item_card_discover.view.*
+import com.qoolqas.moviedb.model.genrestatic.StaticData
 import kotlinx.android.synthetic.main.item_card_genre.view.*
 
-class GenreAdapter(private val list: List<GenreStaticData>) :
+class GenreAdapter(private val list: List<StaticData>) :
     RecyclerView.Adapter<GenreAdapter.ViewHolder>()  {
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -34,12 +31,11 @@ class GenreAdapter(private val list: List<GenreStaticData>) :
             .placeholder(R.color.gray)
             .into(holder.view.genre_background)
 
-//        holder.view.setOnClickListener {
-//            val intentDetail = Intent(holder.view.context, DetailActivity::class.java)
-//            intentDetail.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-//            intentDetail.putExtra(DetailActivity.EXTRA_ID, list[position].id)
-//            holder.view.context.startActivity(intentDetail)
-//            Log.d("id", list[position].id.toString())
-//        }
+        holder.view.setOnClickListener {
+            val action = GenreFragmentDirections.actionNavGenreToNavSearchGenre(list[position])
+            Navigation.findNavController(it).navigate(action)
+            Log.d("id", list[position].id.toString())
+        }
     }
+
 }

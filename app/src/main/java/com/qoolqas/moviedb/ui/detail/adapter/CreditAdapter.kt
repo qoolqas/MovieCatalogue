@@ -1,6 +1,5 @@
 package com.qoolqas.moviedb.ui.detail.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.qoolqas.moviedb.R
 import com.qoolqas.moviedb.model.credits.CastItem
-import com.qoolqas.moviedb.model.similiar.SimiliarResultsItem
-import com.qoolqas.moviedb.ui.detail.DetailActivity
-import kotlinx.android.synthetic.main.item_card_similiar.view.*
 import kotlinx.android.synthetic.main.item_image_cast.view.*
 
 class CreditAdapter(private val list: List<CastItem>) :

@@ -24,12 +24,26 @@
             tools:ignore="RtlSymmetry"
             tools:listitem="@layout/item_pager_main" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homenav_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvPager"
+            tools:listitem="@layout/item_homenav">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
         <TextView
             android:id="@+id/fix_popular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/airbnbmedium"
             android:padding="8dp"
@@ -40,24 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvPager" />
-
-        <TextView
-            android:id="@+id/popularMore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="@string/view_all"
-            android:padding="8dp"
-            android:textColor="@color/colorAccent"
-            android:fontFamily="@font/airbnblight"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/fix_popular"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/fix_popular"
-            app:layout_constraintTop_toTopOf="@+id/fix_popular"
-            app:layout_constraintVertical_bias="0.50" />
+            app:layout_constraintTop_toBottomOf="@+id/homenav_rv" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popularRv"
@@ -66,8 +63,8 @@
             android:layout_marginTop="8dp"
             android:clipToPadding="false"
             android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -101,21 +98,23 @@
             app:layout_constraintTop_toBottomOf="@+id/popularRv" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/upcomingRv"
+            android:id="@+id/tv_popular_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:clipToPadding="false"
             android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/popularDivider"
             tools:ignore="RtlSymmetry"
-            tools:listitem="@layout/item_card_popular">
+            tools:listitem="@layout/item_card_tv">
 
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.constraintlayout.widget.ConstraintLayout>
